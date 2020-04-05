@@ -10,15 +10,51 @@
 \usepackage[document]{ragged2e}
 \usepackage{tabularx}
 \usepackage{amsmath}
-\usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage[ruled]{algorithm2e}
 \usepackage{ragged2e}
 \usepackage{fancyhdr}
 \usepackage{listings}
 \pagestyle{plain}
+\usepackage{algorithm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=black,
+}
+
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
 
 \mastersthesis                     
-\doublespace                   
+\onehalfspacing                   
 
 \renewcommand{\thesisauthor}{Animesh Goyal}    %% Your official UT name.
 
@@ -343,7 +379,7 @@ In order to train the agents, we have taken help of Open AI's Gym toolkit \cite{
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=12cm]{23}
+    \includegraphics[width=15cm]{23}
     \caption{The neural network takes in state information and the reward collected at every timestep from the environment. State information contains (X,Y) coordinates, water level, health of the all the agents and temperature, fieryness of the buildings present. The neural network processes this information and outputs a building ID where the fire brigade needs to move next}
     \label{fig:23}
 \end{figure}
@@ -536,13 +572,14 @@ We use DQN and PPO architecture with a few modifications. We do not have the set
 
 \chapter{RCRS Gym Environment: Setup, Experiments, Analysis}
 
-In order to implement the model introduced in Chapter 3 and prove its concepts, an OpenAI gym environment \cite{brockman2016openai} was created that allowed developing agents which are capable of extinguishing fire in the city. 
+In order to device the model presented in Chapter 3 and prove its concepts, an OpenAI gym environment \cite{brockman2016openai} was created that allowed developing agents which are capable of extinguishing fire in the city. 
 
 OpenAI is a framework that defines a standard structure that a DRL agent can be built with, that makes the structure of the agent easy to recognize by any developer and makes the agent compatible with any environment. 
 
 Since OpenAI is built on Python, it can be easily connected with state-of-art DRL framework such as Tensorflow \cite{Abadi} with gym agents and use DRL techniques that use those frameworks provide. There are certain example algorithms available in OpenAI gym which simplifies the testing on a new environment. 
 
-The proposed design is presented in Figure ~\ref{fig:OpenAIgymRCRS}. Section 4.1 elaborates about the setup that was created to adapt RCRS to allow the training of DRL agents. In Section ~\ref{Experiments}, experiments will be detailed and in Section ~\ref{Analysis}, results will be analyzed. 
+
+The conceptual model of RCRS gym environment is presented in Figure ~\ref{fig:OpenAIgymRCRS}. Section 4.1 elaborates about the setup that was created to adapt RCRS to allow the training of DRL agents. In Section ~\ref{Experiments}, experiments that were carried out will be detailed and in Section ~\ref{Analysis}, results will be analyzed. 
 
 \begin{figure}[!h]
     \centering
@@ -553,11 +590,11 @@ The proposed design is presented in Figure ~\ref{fig:OpenAIgymRCRS}. Section 4.1
 
 \section{Setup} \label{Setup}
 
-This section will deal with the process of building the environment and the logic behind the decision making process of RCRS. 
+This section will deal with the process of building the environment and the logic behind the decisions that are made. 
 
 Section ~\ref{RCRSEnvironment} will describe the goal of the agent, what tasks will it perform after training, introduction to various maps and the complexity of the environment. 
 
-Section ~\ref{OpenAIGym} will elaborate about gym framework and why it was chosen.
+Section ~\ref{OpenAIGym} will elaborate about gym framework and why it was selected.
 
 RCRS is written in Java and OpenAI gym in Python. There has to be a communication channel by which these two languages can communicate in order to send messages. Section ~\ref{CommunicationJavaPython} will discuss about how the communication between Java and Python was established. 
 
@@ -609,52 +646,157 @@ In order to test the algorithms, two maps were chosen. A "Small" map having fewe
 
 \subsection{OpenAI Gym} \label{OpenAIGym}
 
-OpenAI Gym defines a standard architecture that a reinforcement learning agent and the environment should have. Having a defined interface helps compare performance of different reinforcement learning algorithms in the same environment. 
+Having a standard architecture where a reinforcement learning agent can be developed will be really helpful and this is what OpenAI gym provides. This standard architecture helps compare performance of different reinforcement learning algorithms in the same environment. 
 
-OpenAI Gym maintains a repository, stable baselines \cite{stable-baselines}, having examples of implementations of state-of-art DRL methods. These implementations can be used to validate the environment. The defined gym interface is made of two methods that the agent will use to interact with the environment:
+OpenAI Gym maintains a repository known as \emph{baselines} \cite{baselines}, which has examples of implementations of state-of-art DRL methods. But baselines have certain drawbacks that \emph{stable baselines} tried to rectify like having a unified structure for all the algorithms, well documented functions and classes and PEP8 compliant. Hence we decided to go with stable baselines \cite{stable-baselines}. 
+
+These implementations can be used to validate the environment. The defined gym interface is made of two methods that the agent will use to interact with the environment:
 
 \begin{itemize}
     \item \emph{reset}: This function is used to reset the environment to its initial state and returns the initial observation. It is called whenever a new episode is started. 
     \item \emph{step}: This function receives the action that the agent wishes to use in order to interact with the environment as the argument and returns the observation, reward, done and info. 
     \begin{itemize}
-        \item \emph{observation}: State of the environment
-        \item \emph{reward}: Reward collected after the episode
+        \item \emph{observation}: Current state information
+        \item \emph{reward}: Reward collected after the end of every episode
         \item \emph{done}: returns true if episode is over
-        \item\emph{info}: (optional) information value
+        \item\emph{info}: (optional) extra information that needs to be printed
     \end{itemize}
 \end{itemize}
 
 In addition to the above attributes, "action space" and "observation space" should be defined in order to abstract the environment to generic code. 
 
+Apart from the above mentioned functions, there are two more important attributes that need to be defined. 
+
 \begin{itemize}
-    \item \emph{action space}: The space of possible actions that will be used to generate the actions
-    \item \emph{observation space}: The space that defines the dimension of the environment's state
+    \item \emph{action space}: The space of possible actions that will be used to generate the actions. Possible values are 
+    \begin{itemize}
+        \item \emph{Discrete:} A list of possible actions where each timestep only one of the action can be used
+        \item \emph{MultiDiscrete:} A list of possible actions where each timestep only one action of each discrete set can be used
+        \item \emph{Box:} A N-dimensional box which contains every point in the action space
+        \item \emph{MultiBinary:} A list of possible actions, where each timestep any of the actions can be used in any combination
+    \end{itemize}
+    
+    \item \emph{observation space}: The space that defines the dimension of the environment's state. Possible values are the same as listed for action space. 
 \end{itemize}
-
-
-
-
 
 \subsection{Communication between Java and Python} \label{CommunicationJavaPython}
 
+RCRS is written is Java whereas OpenAI gym is in Python. Since at every timestep, state values have to be sent to the OpenAI gym agent and action values have to be received back, a connection has to be established. This connection between Java classes and Python classes was built using Google's protocol buffers \footnote{\url{https://developers.google.com/protocol-buffers/}}  and gRPC \footnote{\url{https://grpc.io/}}. 
+
+Google's protocol buffers are extensible methods for serializing structures data like XML but is faster, smaller and simpler. They are independent of the programming language they are written in. In our case, protocol buffer's are used to generate methods in python and java so as to use the interpretation of both state space and action space. 
+
+Another important point to note down is that the original structuring of the RCRS code base, already had a server and a client connection which was done using socket programming. The server had all the information of the building state i.e. temperature and fieryness whereas client had the information of the agents i.e. (X,Y) coordinates, health points, water level and if the agent is idle or busy. Client was also the one that would receive the next action to be performed i.e. the next building id where the fire brigades should move to. Since RCRS would have to start first and act as a server to the Python agent, we had to build two servers, one that would send the building information and other that would send the agent information and take actions as well. The Python agent would act as client for these two servers. Listing ~\ref{lst:StateInfo} elaborates the protocol representation of the building information while Listing ~\ref{lst:AgentInfo} elaborates the protocol representation of the agent information. 
+
+\begin{lstlisting} [language=Java, label={lst:StateInfo}, caption=Protocol buffer representation of the Building Information] 
+message BuildingInfo {
+  int32 fieryness = 1;
+  double temperature = 2;
+  int32 building_id = 3;
+}
+\end{lstlisting}
+
+\begin{lstlisting} [language=Java, label={lst:AgentInfo}, caption=Protocol buffer representation of the Agent Information] 
+message AgentInfo {
+  int32 agent_id = 1;
+  double x = 2;
+  double y = 3; 
+  int32 water = 4;
+  int32 hp = 5; 
+  int32 idle = 6;
+}
+\end{lstlisting}
+
+gRPC is an open-source remote procedural call (RPC) framework that can run in any environment. Its ease of implementation and pluggable support for load balancing made it our first choice for serialization. 
+RPC server in our case is the gym environment whereas the fire brigade agents acts as RPC clients. Since everything is hidden in the RPC, RCRS (Java classes) will not need to know that it is interacting with the python agent. 
+
+The implementation part is detailed in Listing ~\ref{lst:gRPCBuilding} and Listing ~\ref{lst:gRPCAgent}. 
+
+\begin{lstlisting} [language=Java, label={lst:gRPCBuilding}, caption= gRPC Implementation for Building Info] 
+service RCRSGymService {
+  rpc getBuildingInfo (Empty) returns (BuildingInfo) {}
+}
+\end{lstlisting}
+
+\begin{lstlisting} [language=Java, label={lst:gRPCAgent}, caption= gRPC Implementation for Agent Info] 
+service RCRSGymService {
+  rpc getAgentInfo (ActionInfo) returns (AgentInfo) {}
+}
+\end{lstlisting}
+
 \subsection{RCRS-Gym Implementation} \label{RCRSGymImplementation}
+
+Lets elaborate on the two methods that were defined in Section ~\ref{OpenAIGym} and show how the agents act in the environment using OpenAI gym. 
+
+First, \emph{reset} function is called first and the working is explained in Algorithm ~\ref{alg:ResetAlgo}. By calling the \emph{reset} function, agent expects the initial state information. To obtain that, RCRS and gRPC server starts. Initial state is always the starting position of the fire brigades which can be pre-decided before running the simulations.
+
+After the simulation starts, gym agent sends a random action to the RCRS server using \emph{step} function which then acts in the environment and sends back the next state information, reward value and if the episode is done or not. An episode is done only after 100 timesteps for "Small" map and after 250 timesteps for "Large" map. The reason for selecting different timesteps for an episode to end was that official RCRS Competition is run for 250 timesteps for "Large" map. But for "Small" map, 250 timesteps was more than enough for all the fire brigades to extinguish the fire in all the buildings. Hence, we decided to reduce that time to 100 timesteps which was sufficient to see if the agents are actually learning or not. The algorithm for step function is mentioned in Algorithm 
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Write here the result }
+ initialization\;
+ \While{While condition}{
+  instructions\;
+  \eIf{condition}{
+   instructions1\;
+   instructions2\;
+   }{
+   instructions3\;
+  }
+ }
+ \caption{\emph{Reset} implementation}
+ \label{alg:ResetAlgo}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Write here the result }
+ initialization\;
+ \While{While condition}{
+  instructions\;
+  \eIf{condition}{
+   instructions1\;
+   instructions2\;
+   }{
+   instructions3\;
+  }
+ }
+ \caption{\emph{Step} implementation}
+ \label{alg:StepAlgo}
+\end{algorithm}
 
 \section{Experiments} \label{Experiments}
 
-As mentioned in the Introduction section, we are comparing two maps having different number of buildings and fire brigades. The first map is having 37 buildings and 2 fire brigades. The results of running PPO, DQN is shown in the figure. 
+To start the testing and see if reinforcement learning can actually be applied to RCRS, we started with doing the experiments on the "Small" map. PPO and DQN algorithm were applied to the simulator and the results were compared with a greedy approach where the agents would always extinguish the building with highest fieryness value. 
+
+\subsection{Small Map Experiments}
+
+Simulations were run for 400 episodes (40,000 timesteps) and mean and standard deviation of the reward is calculated after every 5 episodes. Since greedy algorithm wasn't learning, it had a constant reward value of 6.33. DQN achieved a highest cumulative reward of 5.89 and PPO achieved a highest cumulative reward of 5.88. Figure ~\ref{fig:SmallMapResults} shows that both the algorithms were able to learn in the environment improving their cumulative rewards over time. However, DQN attained highest cumulative reward in less number of episodes than PPO showing that it is a more effective algorithm for "Small" map setting.  
+
+Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} show how the agents gets better at extinguishing fire over the episodes. After 5 episodes, both the algorithms were performing badly with most of the buildings are critically or totally burnt. After 150 episodes, agents started learning and fewer number of buildings were on fire. After 250 episodes, DQN was able to successfully figure out the buildings that caused the fire to spread throughout the map and able to extinguish fire in those buildings. PPO was performing better than how it was performing after 150 episodes, but still not as good as DQN. After 300 episodes, PPO was also able to successfully extinguish the critical buildings. For better visualization on how the agents performed over episodes, refer to the \href{https://github.com/animeshgoyal9/RoboCup_Rescue_Simulator_Gym_Integration} {GitHub page}. 
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=12cm]{29.png}
-    \caption{\textbf{Comparison of Results for Small Map}}
-    \label{fig:x}
+    \caption{Rewards per episode for PPO, DQN and Greedy algorithm in "Small" Map setting. Dark line represents the mean value for rewards while shaded region is the standard deviation}
+    \label{fig:SmallMapResults}
 \end{figure}
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=16cm]{PPO.png}
-    \caption{\textbf{Comparison of Results for Small Map}}
-    \label{fig:x}
+    \includegraphics[width=14cm]{PPO.png}
+    \caption{PPO: Fire Brigades learning to extinguish fire over 250 episodes. After 5 episodes, there was hardly any learning with most of the buildings either critically or totally burnt. After 250 episodes, agents learnt the critical buildings that need to be extinguished}
+    \label{fig:PPOLearningSmallMap}
+\end{figure}
+
+\subsection{Big Map Experiments}
+
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=14cm]{DQN.png}
+    \caption{DQN: Fire Brigades learning to extinguish fire over 250 episodes}
+    \label{fig:DQNLearningSmallMap}
 \end{figure}
 
 \section{Analysis} \label{Analysis}
@@ -662,8 +804,8 @@ As mentioned in the Introduction section, we are comparing two maps having diffe
 \begin{figure}[!h]
     \centering
     \includegraphics[width=12cm]{30.png}
-    \caption{\textbf{Comparison of Results for Big Map}}
-    \label{fig:x}
+    \caption{Comparison of Results for Big Map}
+    \label{fig:DQNSmallMapLearningMaps}
 \end{figure}
 
 \chapter{Conclusion and Future Work}
@@ -677,8 +819,5 @@ As mentioned in the Introduction section, we are comparing two maps having diffe
 
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}      
-
-\begin{thesisauthorvita}             
-\end{thesisauthorvita}               
 
 \end{document}                       %% Done.
