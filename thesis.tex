@@ -96,7 +96,7 @@
 \begin{thesisacknowledgments}       
 First and foremost I would like to thank my advisor, Peter Stone, for his guidance and encouragement throughout this report. He always made himself available to provide help and I could always count on his lightning-fast email responses. He gave me autonomy in finding a research topic and provided the right amount of guidance to help me make progress when I felt stuck. It has been a privilege to work with him. Garrett Warnell and Tsz-Chiu Au deserves a special thanks as collaborators and mentors throughout my research. They have provided invaluable help, especially with regards to their extensive reviews of my writing. Discussions with them have helped me flesh out ideas fully, and my writing and research ability have improved through their mentorship.    
 
-I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input with her experience with Java and gRPC. She was always very helpful and supportive. Ashutosh Shukla reviewed several of my work and and provided extensive feedback. His constant motivation was very encouraging throughout my report. I would also like to thank Ishan Durugkar and Siddharth for being always available to solve any doubts that I had regarding the simulator. 
+I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input with her experience with Java and gRPC. She was always very helpful and supportive. Ashutosh Shukla reviewed several of my work and and provided extensive feedback. His constant motivation was very encouraging throughout my research. I would also like to thank Ishan Durugkar and Siddharth for being always available to solve any doubts that I had regarding the simulator. 
 
 This work has taken place in the Learning Agents Research Group (LARG) at the Artificial Intelligence Laboratory, The University of Texas at Austin.  LARG research is supported in part by grants from
 the National Science Foundation (CPS-1739964, IIS-1724157, NRI-1925082), the Office of Naval Research (N00014-18-2243), Future of Life Institute (RFP2-000), Army Research Laboratory, DARPA, Lockheed
@@ -532,7 +532,7 @@ The conceptual model of RCRS gym environment is presented in Figure ~\ref{fig:Op
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[height=10cm, width=17cm]{OpenAIgymRCRS.png}
+    \includegraphics[height=8cm, width=17cm]{OpenAIgymRCRS.png}
     \caption{Conceptual model of the RCRS Gym environment and agent}
     \label{fig:OpenAIgymRCRS}
 \end{figure}
@@ -680,41 +680,7 @@ First, \emph{reset} function is called first and the working is explained in Alg
 
 After the simulation starts, gym agent sends a random action to the RCRS server using \emph{step} function which then acts in the environment and sends back the next state information, reward value and if the episode is done or not. Pictorial representation of the working RCRS-gym working is shown in Figure ~\ref{fig:23}. 
 
-An episode is done only after 100 timesteps for "Small" map and after 250 timesteps for "Large" map. The reason for selecting different timesteps for an episode to end was that official RCRS Competition is run for 250 timesteps for "Large" map. But for "Small" map, 250 timesteps was more than enough for all the fire brigades to extinguish the fire in all the buildings. Hence, we decided to reduce that time to 100 timesteps which was sufficient to see if the agents are actually learning or not. The algorithm for step function is mentioned in Algorithm 
-
-\begin{algorithm}[H]
-\SetAlgoLined
-\KwData{Write here the result }
- initialization\;
- \While{While condition}{
-  instructions\;
-  \eIf{condition}{
-   instructions1\;
-   instructions2\;
-   }{
-   instructions3\;
-  }
- }
- \caption{\emph{Reset} implementation}
- \label{alg:ResetAlgo}
-\end{algorithm}
-
-\begin{algorithm}[H]
-\SetAlgoLined
-\KwResult{Write here the result }
- initialization\;
- \While{While condition}{
-  instructions\;
-  \eIf{condition}{
-   instructions1\;
-   instructions2\;
-   }{
-   instructions3\;
-  }
- }
- \caption{\emph{Step} implementation}
- \label{alg:StepAlgo}
-\end{algorithm}
+An episode is done only after 100 timesteps for "Small" map and after 250 timesteps for "Large" map. The reason for selecting different timesteps for an episode to end was that official RCRS Competition is run for 250 timesteps for "Large" map. But for "Small" map, 250 timesteps was more than enough for all the fire brigades to extinguish the fire in all the buildings. Hence, we decided to reduce that time to 100 timesteps which was sufficient to see if the agents are actually learning or not. 
 
 \begin{figure}[!h]
     \centering
@@ -759,12 +725,12 @@ Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} 
 
 \section{Analysis} \label{Analysis}
 
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=12cm]{30.png}
-    \caption{Comparison of Results for Big Map}
-    \label{fig:DQNSmallMapLearningMaps}
-\end{figure}
+% \begin{figure}[!h]
+%     \centering
+%     \includegraphics[width=12cm]{30.png}
+%     \caption{Comparison of Results for Big Map}
+%     \label{fig:DQNSmallMapLearningMaps}
+% \end{figure}
 
 \chapter{Conclusion and Future Work}
 
