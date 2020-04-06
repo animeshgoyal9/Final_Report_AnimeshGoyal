@@ -47,7 +47,7 @@
 %%% variable contains the directory in which this file is located.
 %%% Include this file as a package in the preamble:
 %%%
-%%% \documentclass[...]{report}
+%%% \documentclass[.....]{report}
 %%% \usepackage{utthesis}
 %%%
 %%% On non-UNIX systems, there might be different environment variables
@@ -344,12 +344,10 @@
     \thispagestyle{empty}
     \begin{spacing}{2}
     \begin{center}
-      % Commented-out by JAB 08Mar99 -- didn't leave any room for two-line title
-      %\strut \vfill    % Added BKay 17Oct96 -- title was too high on the page
-      \@thesistitle \\[8mm]
-      by \\[4mm]
+      \@thesistitle \\[4mm]
+      by \\[3mm]
       \@thesisstudent \\
-      \vspace{26mm}
+      \vspace{18mm}
       \textbf{\thesistypetypesize \thesistype} \\
       Presented to the Faculty of the Graduate School of \\
       \@universityname \\
@@ -357,8 +355,8 @@
       of the Requirements \\
       for the Degree of \\[4mm]
       \textbf{\thesisdegreetypesize \thesisdegree} \\
-      \vspace{26mm}
-      \textbf{\Large \@universityname} \\[4mm]
+      \vspace{18mm}
+      \textbf{\Large \@universityname} \\[3mm]
       \thesismonth \ \thesisyear
     \end{center}
     \end{spacing}
@@ -411,7 +409,7 @@
         \thesissigline{\thesissupervisor, Supervisor}
      \fi
      \ifx\thesiscosupervisor\@emptycommand\relax\else
-        \thesissigline{\thesiscosupervisor, Supervisor}
+        \thesissigline{\thesiscosupervisor, Co-Supervisor}
      \fi
      \ifx\thesiscommitteemembera\@emptycommand\relax\else
         \thesissigline{\thesiscommitteemembera}

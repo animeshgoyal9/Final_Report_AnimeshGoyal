@@ -5,13 +5,13 @@
 \usepackage{tocloft}
 %\usepackage{ulem}
 %\usepackage{setspace}
-\usepackage[left=1.5in, right=1.5in]{geometry}
+\usepackage[left=1in, right=1in]{geometry}
 \usepackage{graphicx}
 \usepackage[document]{ragged2e}
 \usepackage{tabularx}
 \usepackage{amsmath}
 \usepackage{algorithmic}
-\usepackage[ruled]{algorithm2e}
+%\usepackage[ruled]{algorithm2e}
 \usepackage{ragged2e}
 \usepackage{fancyhdr}
 \usepackage{listings}
@@ -56,63 +56,25 @@
 \mastersthesis                     
 \onehalfspacing                   
 
-\renewcommand{\thesisauthor}{Animesh Goyal}    %% Your official UT name.
+\renewcommand{\thesisauthor}{Animesh Goyal}    
 
-\renewcommand{\thesismonth}{May}     %% Your month of graduation.
+\renewcommand{\thesismonth}{May}     
 
-\renewcommand{\thesisyear}{2020}      %% Your year of graduation.
+\renewcommand{\thesisyear}{2020}     
 
-\renewcommand{\thesistitle}{Multi-Agent Deep Reinforcement Learning for RoboCup Rescue Simulator}     %% The title of your thesis; use
-                                     %% mixed-case.
-
-%\renewcommand{\thesisauthorpreviousdegrees}{Master of Science in Operation Research and Industrial Engineering}
-                                     %% Your previous degrees, abbreviated;
-                                     %% separate multiple degrees by commas.
+\renewcommand{\thesistitle}{Multi-Agent Deep Reinforcement Learning for RoboCup Rescue Simulator}   
 
 \renewcommand{\thesissupervisor}{Peter Stone}
-                                     %% Your thesis supervisor; use mixed-case
-                                     %% and don't use any titles or degrees.
-
+                                     
 \renewcommand{\thesiscosupervisor}{Garrett Warnell}
-                                     %% Your PhD. thesis co-supervisor; if any.
-                                     %% Use mixed case and don't use any titles
-                                     %% or degrees. Uncomment if you
-                                     %% have a co-supervisor.
-                                     %% (Ignored for Master's)
-
-
+                                    
 
 \renewcommand{\thesisauthoraddress}{4305 Duval St. 78751, Austin, TX, USA}
-                                     %% Your permanent address; use "\\" for
-                                     %% linebreaks.
-
-\renewcommand{\thesisdedication}{...}
-                                     %% Your dedication, if you have one; use
-                                     %% "\\" for linebreaks.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%
-%%% The following commands are all optional, but useful if your requirements
-%%% are different from the default values in utthesis.sty.  To use them,
-%%% simply uncomment (remove the leading %) the line(s).
-
+                                     
 
 \renewcommand{\thesisdegree}{Master of Science in Operation Research and Industrial Engineering } 
 
-% \renewcommand{\thesisdegreeabbreviation}{...}
-                                     %% Use this if you also use the above
-                                     %% command; provide the OFFICIAL
-                                     %% abbreviation of your thesis degree.
-
-\renewcommand{\thesistype}{Master's Report}    %% Use this ONLY if your thesis type
-                                     %% is NOT "Dissertation" for \phdthesis
-                                     %% or "Thesis" for \mastersthesis.
-                                     %% Provide the OFFICIAL type of the
-                                     %% thesis; use mixed-case.
-
-% \renewcommand{\thesistypist}{...}  %% Use this to specify the name of
-                                     %% the thesis typist if it is anything
-                                     %% other than "the author".
+\renewcommand{\thesistype}{Master's Report}    
 
 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -121,35 +83,38 @@
 \justify 
 \noindent
 
-\thesiscopyrightpage                 %% Generate the copyright page.
+\thesiscopyrightpage                 
 
-\thesiscertificationpage             %% Generate the PhD. certification page.
+\thesiscertificationpage             
 
-\thesistitlepage                     %% Generate the title page.
+\thesistitlepage                     
 
-%\thesissignaturepage                %% Generate the Master's signature page.
+%\thesissignaturepage               
 
-\thesisdedicationpage                %% Generate the dedication page.
+% \thesisdedicationpage               
 
-
-\begin{thesisacknowledgments}        %% Use this to write your
+\begin{thesisacknowledgments}       
 First and foremost I would like to thank my advisor, Peter Stone, for his guidance and encouragement throughout this report. He always made himself available to provide help and I could always count on his lightning-fast email responses. He gave me autonomy in finding a research topic and provided the right amount of guidance to help me make progress when I felt stuck. It has been a privilege to work with him. Garrett Warnell and Tsz-Chiu Au deserves a special thanks as collaborators and mentors throughout my research. They have provided invaluable help, especially with regards to their extensive reviews of my writing. Discussions with them have helped me flesh out ideas fully, and my writing and research ability have improved through their mentorship.    
 
-I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input regarding the ..................
+I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input with her experience with Java and gRPC. She was always very helpful and supportive. Ashutosh Shukla reviewed several of my work and and provided extensive feedback. His constant motivation was very encouraging throughout my report. I would also like to thank Ishan Durugkar and Siddharth for being always available to solve any doubts that I had regarding the simulator. 
+
+This work has taken place in the Learning Agents Research Group (LARG) at the Artificial Intelligence Laboratory, The University of Texas at Austin.  LARG research is supported in part by grants from
+the National Science Foundation (CPS-1739964, IIS-1724157, NRI-1925082), the Office of Naval Research (N00014-18-2243), Future of Life Institute (RFP2-000), Army Research Laboratory, DARPA, Lockheed
+Martin, General Motors, and Bosch.  Peter Stone serves as the Executive Director of Sony AI America and receives financial compensation for this work.  The terms of this arrangement have been reviewed and approved by the University of Texas at Austin in accordance with its policy on objectivity in research. 
 
 \end{thesisacknowledgments}          
 
 \begin{thesisabstract}               
 
-Recent advancement in the field of reinforcement learning has been driven on strategic games like Atari games, DOTA 2 and StarCraft where testing the model can be done quickly and in a safe manner. 
+Recent advancement in the field of Artificial Intelligence have dealt with creating a winning strategy for games like Atari, DOTA 2 and StarCraft where agents learn how to finish their task successfully using reinforcement learning. As the capabilities have increased, the research community has sought games having increased complexity that seize different aspects of intelligence required to solve real-world problems. 
 
-This work tries to explore strategic multi-agent games as an environment for deep reinforcement learning research. Large state space analysis and long term planning are one of the core requirements of strategic games in order to build a winning strategy. Building these winning strategies using deep reinforcement learning is a attractive as well as challenging task to work on specially when it incorporates multi-agent training where building the strategy is even more difficult. 
+Large state space analysis and long term planning are one of the core requirements of strategic games in order to build a winning strategy. Building these winning strategies using deep reinforcement learning is a attractive as well as challenging task to work on specially when it incorporates multi-agent training where building the strategy is even more difficult. Applying deep reinforcement learning to such multiagent scenario is together known as Multiagent Deep Reinforcement learning (MADRL). 
 
-RoboCup Rescue Simulation Competition (RCRS), which is part of the annual RoboCup Competition, is an open source virtual environment that evaluates how effective multiple agents like ambulance team, police officer and fire brigades are in rescuing civilians and extinguishing fire from a city where an earthquake just happened. RCRS is challenging, easy to use and customize multi-agent scenario. 
+In this work, we apply MADRL to RoboCup Rescue Simulator (RCRS), which is part of the annual RoboCup Competition. RCRS is an open-source virtual environment that evaluates how effective multiple agents like ambulance team, police officer and fire brigades are in rescuing civilians and extinguishing fire from a city where an earthquake just happened. RCRS is challenging, easy to use and customize multi-agent scenario. 
 
-In order to create RCRS environment where reinforcement learning algorithms can be tested, RCRS-gym, an open-source OpenAI Gym environment was created. We tested various algorithms for different map settings. 
+In order to create RCRS environment where reinforcement learning algorithms can be tested, RCRS-gym, an open-source OpenAI Gym environment was created. We tested various algorithms for different map settings where number of agents and buildings were changed. 
 
-Using Deep Q-Network and Proximal Policy Optimization algorithm, two agents (fire brigades) were able to learn how to extinguish fire in a city with 37 buildings (Small Map). The agents were able to understand the buildings where fire should be first extinguished so that it doesn't spread to other parts of the city quickly. This proves that the environment is suitable for developing a multi-agent deep reinforcement learning model. Another map having 100 buildings was trained using four fire brigades but required more training time and better hyperparameter tuning to make conclusions on the final performance.   
+Using two DRL algorithms, Deep Q-Network and Proximal Policy Optimization, we were able to train the agents to successfully finish the task of extinguishing fire on the "Small" map thus proving that RCRS is a suitable environment for developing deep reinforcement learning agent in a strategic multiagent game scenario. "Big" map required more training time to make conclusions on the agent's final performance. 
                                 
 \end{thesisabstract}                 
 
@@ -157,31 +122,23 @@ Using Deep Q-Network and Proximal Policy Optimization algorithm, two agents (fir
 
 \newpage
 
-\addcontentsline{toc}{chapter}{\numberline{}List of Figures}%
+\addcontentsline{toc}{chapter}{List of Figures}%
 \listoffigures
+
 \newpage
-\addcontentsline{toc}{chapter}{\numberline{}List of Algorithms}%
+\addcontentsline{toc}{chapter}{List of Algorithms}%
 \listofalgorithms
 \newpage
-\addcontentsline{toc}{chapter}{\numberline{}List of Tables}%
+\addcontentsline{toc}{chapter}{List of Tables}%
 \listoftables
 \newpage
-% \listoftables      
-% \newpage %% Uncomment this to generate list
-%                                      %% of tables.
-% \listofalgorithms    
-% \newpage%% Uncomment this to generate list
-%                                      %% of algorithms.
-% \listoffigures        
-% \newpage%% Uncomment this to generate list
-                                     %% of figures.
 
 \chapter{Introduction}            
 
 
 On April 2019, OpenAI's DOTA 2 beat 99.4 percent of players in public matches \cite{dota2}. On October 2019, DeepMind's StarCraft II AI was able to play better than 99.8 percent of all humans \cite{Starcraft2}. These are milestone achievements where artificial intelligence has been used in the area of Multi Agent Systems (MAS). Although different techniques and algorithms were used in the above scenarios, in general, they are all a combination of techniques from two main areas: Reinforcement Learning and Deep Learning. 
 
-Reinforcement learning (RL) is an area of machine learning where agents learn what actions to take in certain environment that results in higher cumulative reward over time. However, one of the drawbacks of RL is that the state space or action space can become too large to be completely known. This is where neural networks can be particularly useful as they are very good function approximators. Neural Networks can learn to map states to values, or state-action pairs to Q values. Rather than building a lookup table to store, index and update all possible states and their values, we can train a neural network on samples from the state or action space to learn to predict how valuable those are relative to our target in reinforcement learning. This is called Deep Reinforcement learning (DRL). 
+Reinforcement learning (RL) is an area of machine learning where agents learn what actions to take in certain environment that results in higher cumulative reward over time. However, one of the drawbacks of RL is that the state space or action space can become too large to be completely known. This is where neural networks can be particularly useful as they are very good function approximators. Neural Networks can learn to map states values, or state-action pairs to Q values. Rather than building a lookup table to store, index and update all possible states and their values, we can train a neural network on samples from the state or action space to learn to predict how valuable those are relative to our target in reinforcement learning. This is called Deep Reinforcement learning (DRL). 
 
 \begin{figure}[!h]
     \centering
@@ -194,21 +151,13 @@ Together MAS and DRL are referred to as Multiagent Deep Reinforcement learning (
 
 One such domain is RoboCup Rescue Simulator (RCRS) (Figure ~\ref{fig:10}). RCRS is structured as a 2D discrete-time simulation system that depicts the situation after occurrence of earthquake in an urban area. Different agents like police officers, fire brigades and ambulance teams interact with the environment and with each other to accomplish tasks such as removing blockades, extinguishing fire and rescuing civilians. This task allocation can be handles in two ways: centralized or distributed. In centralized task allocation, a central agent manages all the agents and has the global knowledge whereas in case of distributed task allocation problem, each agent makes its own decisions and works only on its local information \cite{Nair}. 
 
-\textbf{Contributions:} In this report, using centralized task allocation approach we have applied Deep Reinforcement Learning (DRL) algorithms to RCRS in order to train multiple fire brigades to extinguish the fire in the city on different sized maps having different number of agents and total buildings. The objectives are listed below as research questions: 
-
-%%--------------Remove from here---------------------
-% We compare a small map having 37 buildings and 2 fire brigades with a bigger map having 100 buildings and 4 fire brigades. The Deep Reinforcement learning techniques applied were Deep Q-learning (DQN) and Proximal Policy Optimization (PPO). Using DQN, \cite{mnih} was able to achieve human level performance on Atari games whereas PPO helped OpenAI's DOTA 2 team beat 99.4 percent of players in public match. 
-%%--------------Remove from here---------------------
+\textbf{Contributions:} In this report, using centralized task allocation approach we have applied Deep Reinforcement Learning (DRL) algorithms to RCRS in order to train multiple fire brigades to extinguish the fire in the city on different sized maps having different number of agents and total buildings. The major contributions are listed below: 
 
 \begin{itemize}
-    \item Is DRL appropriate for RoboCup Rescue Simulator?
-    \item Can DRL learn a winning strategy for RCRS?
-    \item If yes, what DRL algorithms are most suitable for it?
-    \item What are the limitations of DRL model for RCRS?
-    
-    % \item \textbf{Built a RCRS-Gym interface, that can be utilized to apply various reinforcement learning algorithms to RCRS}
-    % \item \textbf{Evaluated state-of-the-art reinforcement learning algorithms on RCRS, providing an extensive set of results for comparison}
-    % \item \textbf{Showcased promising future research directions in this environment i.e. partial observability and including police officer and ambulance as the agent}
+    \item Built a RCRS-Gym interface, that can be utilized to apply various reinforcement learning algorithms to RCRS
+    \item Evaluated state-of-the-art reinforcement learning algorithms on RCRS, providing an extensive set of results for comparison
+    \item Successfully trained the agents to learn a winning strategy thus proving that RCRS is a suitable environment for applying DRL 
+    \item Showcased promising future research directions in this environment i.e. partial observability and including police officer and ambulance as the agent
 \end{itemize}
 
 The rest of the report is structured as follows. Chapter 2 will help build important concepts that are important for understanding this project. Specifically it will explain the state-of-art DRL algorithms. In Chapter 3, detailed explanation of the simulator is done along with the state space, action space and reward function selected. In Chapter 4, implementation of the model in RCRS will be detailed along with the results. In Chapter 5, everything will be summarized and will discuss the future directions for the project. 
@@ -216,39 +165,39 @@ The rest of the report is structured as follows. Chapter 2 will help build impor
 
 \chapter{Background}                       
 
-This chapter will briefly cover the basic but very important concepts to understand the project like Reinforcement learning, Deep Reinforcement learning and Multi-agent system. With the definitions set, we will elaborate the work that is so far done to apply Reinforcement learning to RCRS. 
+This chapter will briefly cover the basic but very important concepts like Reinforcement learning, Deep Reinforcement learning and Multi-agent system that will build the necessary background to understand the project properly.  
 
 \section{Reinforcement learning}
 
-Reinforcement learning is modeled as a Markov Decision process where the agent interacts with the environment to learn the actions in a certain state which would produce the highest reward. The reinforcement learning model is depicted in Figure ~\ref{fig:ReinforcementLearningModel} 
+Reinforcement learning is modeled as a Markov decision process where the agent interacts with the environment to learn the actions in a certain state which would produce the highest reward. The reinforcement learning model is depicted in Figure ~\ref{fig:ReinforcementLearningModel} 
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=12cm]{ReinforcementLearningModel.png}
-    \caption{Abstract depiction of Reinforcement Learning Model: At some point in time t, the RL agent experiences a state $S_t$ and a reward $R_t$ for his action in time $t-1$. In state $S_t$, the agent takes action $A_t$ , for which the environment advances a time step, and the agent experiences a new state $S_{t+1}$ and a reward $R_{t+1}$ for action $A_{t+1}$}
+    \caption{Abstract depiction of reinforcement Learning Model: At some point in time t, the RL agent experiences a state $S_t$ and a reward $R_t$ for his action in time $t-1$. In state $S_t$, the agent takes action $A_t$ , for which the environment advances a time step, and the agent experiences a new state $S_{t+1}$ and a reward $R_{t+1}$ for action $A_{t+1}$}
     \label{fig:ReinforcementLearningModel}
 \end{figure}
 
 In order to maximize the long term reward signal, Reinforcement learning learns optimal actions for specific environment conditions by trial-and-error \cite{Barto}. 
 
-At each time step t, the agent perceives a state $s_t$ in state space S from which it selects an action $a_t$ in the action space A by following a policy $\pi$. The agent receives a reward $r_t$ when it transitions to the state $s_{t+1}$ according to the environment dynamics, the reward function R($s_t$, $a_t$, $s_{t+1}$) and the transition function T($s_t$, $a_t$, $s_{t+1}$). Discount factor $\gamma$ $\in$ [0, 1] is applied to the future rewards. There are two types of RL approach: model based and model free. 
+At each time step t, the agent perceives a state $S_t$ in state space S from which it selects an action $A_t$ in the action space A by following a policy $\pi$. The agent receives a reward $R_t$ when it transitions to the state $S_{t+1}$ according to the environment dynamics, the reward function R($S_t$, $A_t$, $S_{t+1}$) and the transition function T($S_t$, $A_t$, $S_{t+1}$). Discount factor $\gamma$ $\in$ [0, 1] is applied to the future rewards. There are two types of RL approach: model based and model free. 
 
 \textbf{Model based approach} uses a reduced number of interactions with the real environment during the learning phase. Its aim is to construct a model based on these interactions, and then use this model to simulate the further episodes, not in the real environment but by applying them to the constructed model and get the results returned by that model.
 
-\textbf{Model free based approach} act in real environment in order to learn. The most common model-free technique is Q-Learning and Policy Gradient methods. 
+\textbf{Model free based approach} act in real environment in order to learn. The most common model-free technique is Q-Learning and Policy Gradient methods. For our project, we will focus on Model free based approach since agents will have to learn by acting in the real RCRS environment. 
 
-\subsection{Q-learning} In Q-learning we are trying to build a Q-table Q(s,a) that stores all possible combinations of state s and action a. We sample an action a from the Q-table for the current state s. We observe the reward R and next state s'. Then from the Q-table we determine the next action a' in order to have maximum Q(s', a') (Figure ~\ref{fig:QLearning}). 
+\subsection{Q-learning} In Q-learning we are trying to build a Q-table that stores all possible combinations of state S and action A. Q value will be depicted as Q(S,A). We sample an action A from the Q-table for the current state S and observe the reward R and next state S'. Then from the Q-table we determine the next action A' in order to have maximum Q(S', A') (Figure ~\ref{fig:QLearning}). 
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=8cm]{QLearning.png}
-    \caption{Q-Learning working}
+    \caption{Working of Q-Learning}
     \label{fig:QLearning}
 \end{figure}
 
-\[ Target = R(s,a,s') + \gamma max_{a'} Q_k (s', a') \] 
+\[ Target = R(S,A,S') + \gamma \max_{\{A'\}} Q_k (S', A')  \] 
 
-Here $\gamma$ is the discount factor who's value is between [0,1]. It controls the importance of future rewards vs the immediate ones. The lower the discount factor, the lesser important future rewards are and the agent will tend to focus on actions that will yield immediate rewards.    
+Here $\gamma$ is the discount factor with values lying between [0,1]. It controls the importance of future rewards vs the immediate ones. The lower the discount factor, the lesser important future rewards are and the agent will tend to focus on actions that will yield immediate rewards.    
 
 \subsection{Policy Gradient} Policy gradient doesn't calculate the Q-value but instead uses a policy. 
 
@@ -306,7 +255,7 @@ objective to compute the complete objective function.
 
 \section{Multi-Agent Systems (MAS)}
 
-In Multi-agents systems there are several agents that model each other's goals and actions \cite{Stone}. There may be direct communication between the agents in a fully general multiagent scenario. In multiagent systems, environment dynamics of other agents can be known by each agent which is unlike single agent systems, other agents can affect the environment in unpredictable ways and can create uncertainty in the domain. Therefore, multiagent systems can be viewed as having dynamic environments. Figure ~\ref{fig:MultiAgentSystem} shows a fully general multiagent scenario. 
+In multi-agents systems there are several agents that model each other's goals and actions \cite{Stone}. There may be direct communication between the agents in a fully general multiagent scenario. In multiagent systems, environment dynamics of other agents can be known by each agent which is unlike single agent systems, other agents can affect the environment in unpredictable ways and can create uncertainty in the domain. Therefore, multiagent systems can be viewed as having dynamic environments. Figure ~\ref{fig:MultiAgentSystem} shows a fully general multiagent scenario. 
 
 \begin{figure}[!h]
     \centering
@@ -314,6 +263,21 @@ In Multi-agents systems there are several agents that model each other's goals a
     \caption{A fully general multiagent scenario. Agents can affect other agents actions, goals or domain knowledge or communicate directly with each other \cite{Stone}}
     \label{fig:MultiAgentSystem}
 \end{figure}
+
+
+Multiagent Systems can be further divided into various categories mentioned below \cite{SurveyandArticle}:
+
+\begin{itemize}
+    \item \emph{Goals}: Environment setting can be cooperative, competitive or mixed. In cooperative setting, all agents usually share a common reward function. Competitive setting is usually modelled as a zero-sum Markov game, where reward of one agent is exactly the loss of the other. Mixed setting is also known as the general-sum game setting where no restriction is imposed on the goal and relationship of the agents. Each agent is self interested and can have conflicting rewards.
+    \item \emph{Actions}: Actions can be deterministic or stochastic. In case of deterministic actions, taking an action always results in the same action being taken whereas in case of stochastic actions, actions can change with a certain probability
+    \item \emph{Domain knowledge}: The environment can be partially or fully observable. In partial observability, each agent has access to only certain information about the environment. 
+\end{itemize}
+
+For our case, environment is fully observable where all agents have total information about other agents and the environment as well. Its a cooperative setting where all agent have a common reward function. All the actions are deterministic in nature. 
+
+\chapter{Related Work}
+
+With the definitions set, we will now elaborate on the work that is so far done in the field of MADRL and how RL has been applied to RCRS.
 
 \section{Multi-Agent Deep Reinforcement learning (MADRL)}
 
@@ -335,16 +299,16 @@ Martinez et. al \cite{Martinez} were the first one to implement Reinforcement Le
 
 \section{Domain Description}
 
-The competition is based on a complex simulation platform representing a city after a disaster. In order to make the simulator as realistic as possible, its designed to have heterogeneous agents (different types of agent), limited reach (agents can only perform tasks occurring close to them), random fire spread, injured victims, agents having limited communication with messages often getting dropped, agents being only able to see a short distance. It is therefore considered as a multiagent simulator \cite{Kitano}.  
+The competition is based on a complex simulation platform representing a city after an earthquake. In order to make the simulator as realistic as possible, its designed to have heterogeneous agents (different types of agent), limited reach (agents can only perform tasks occurring close to them), random fire spread, injured victims, agents having limited communication with messages often getting dropped, agents being only able to see a short distance. It is therefore considered as a multiagent simulator \cite{Kitano}.  
 
 RCRS has 3 major parts: Environment, Agents and Line of Sight:
 
 \subsection{Environment}
 
-The environment in RCRS comprises of various kinds of entities. The most important are buildings, roads, blockages, refuges and humans \cite{Morimoto}. 
+The RCRS environment comprises of various kinds of entities. The most important are buildings, roads, blockages, refuges and humans \cite{Morimoto}. 
 
 
-\textbf{Buildings} are real constructions and have properties like area, fieryness and temperature, if its made of wood or cement. This information is useful for the simulator to calculate fire spread and building collapses. In case the building area is high and made of wood, fire will spread quickly. Simulator also changes the color of the building depending on the temperature and fieryness value. In case the both the properties are high, color gets darker and eventually turning black if the building is burned out. Note that fieryness value means how strong the fire is. 
+\textbf{Buildings} are real constructions and have properties like area, fieryness and temperature, if its made of wood or cement. This information is useful for the simulator to calculate fire spread and building collapses. In case the building area is high and made of wood, fire will spread quickly. Simulator also changes the color of the building depending on the temperature and fieryness value. In case both the properties are high, color gets darker and eventually turning black if the building is burned out. Note that fieryness value means how strong the fire is. 
 
 \textbf{Roads} help the agents to move along the map. Some of the properties of roads are length, number of lanes. If a road is blocked due to agents standing in front or blockages, its not possible to move along it. 
 
@@ -360,7 +324,14 @@ The environment in RCRS comprises of various kinds of entities. The most importa
 
 \textbf{Police Officers} These agents are responsible to clear the blockages and allow other agents to complete their tasks. To clear a blockage, police officers need to get close to it. 
 
-\subsection{Line of Sight} Each agent has a particular line of sight beyond which they cannot see. Since at each timestep, agents are able to visualize only a set of entities.
+Pictorial view of all the entities in the simulator are mentioned in Figure ~\ref{fig:RCRSActors}. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=12cm]{RCRSActors.png}
+    \caption{Entities in RoboCup Rescue Simulator}
+    \label{fig:RCRSActors}
+\end{figure}
 
 \hfill
 
@@ -368,23 +339,14 @@ In this report, we have focused on training multiple fire brigades to extinguish
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=12cm]{12}
+    \includegraphics[width=12cm]{13}
     \caption{\textbf{Representation of the Simulator:} RoboCup Rescue Simulator with fire brigades. Different polygons are the buildings in the map. Grey color shows building is unburnt, yellow and red color shows building is burning, blue color depicts fire is extinguished and black shows the building is totally burnt. Note that as the shades get darker, building temperature and fieryness (degree of fire) increases.}
     \label{fig:RepresentationofSimulator}
 \end{figure}
 
-%---------------------------Put this in gym section ---------------------------------------------
-In order to train the agents, we have taken help of Open AI's Gym toolkit \cite{brockman2016openai} which has been used to develop and compare different reinforcement learning algorithms. Reinforcement learning requires an agent and an environment. Environment, that represents the outside world to the agent and an agent that takes actions, receives observations from the environment which consists of a reward for the actions taken and knowledge of the new state. That reward implies how good or bad the action was, and the observation implies what will be the next state in the environment. Figure ~\ref{fig:23} explains how this loop is implemented to RCRS. 
-%---------------------------Put this in gym section ---------------------------------------------
+\subsection{Search Strategy of Fire Brigades}
 
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=15cm]{23}
-    \caption{The neural network takes in state information and the reward collected at every timestep from the environment. State information contains (X,Y) coordinates, water level, health of the all the agents and temperature, fieryness of the buildings present. The neural network processes this information and outputs a building ID where the fire brigade needs to move next}
-    \label{fig:23}
-\end{figure}
-
-Fire is initiated randomly following a Poisson distribution on the map. Fire brigades start searching the map looking for fire spots in the environment. Once the fire trucks detect a fire, they start extinguishing it. Note that extinguishing only takes place if the fire trucks are in a close proximity to the building. Fire brigades extinguish the fire until one of the three conditions hold true: (i) It is able to extinguish the fire completely, (ii) building has been completely burned out, or (iii) water in the fire tank is empty. For the first two situations, fire brigades start searching for a new building. For the third case, fire brigades move to the refuge to refill their tanks. In case the fire brigade sees more than one building on fire, it selects the one with highest priority using the following equation: 
+Fire is initiated randomly following a Poisson distribution. Fire brigades start searching the map looking for fire spots in the environment. Once the fire trucks detect a fire, they start extinguishing it. Note that extinguishing only takes place if the fire trucks are in a close proximity to the building. Fire brigades extinguish the fire until one of the three conditions hold true: (i) It is able to extinguish the fire completely, (ii) building has been completely burned out, or (iii) water in the fire tank is empty. For the first two situations, fire brigades start searching for a new building. For the third case, fire brigades move to the refuge to refill their tanks. In case the fire brigade sees more than one building on fire, it selects the one with highest priority using the following equation: 
 
 \[ Priority = (\frac{Fieryness}{Total Area}) + (\frac{1}{\sqrt{distance}}) + {UnBurnedNeighbors}  \]
 
@@ -393,7 +355,7 @@ By this formula, priority is given to the building which has the highest fieryne
 Pseudo code for the algorithm that fire brigade follows is described in Pseudo-Algorithm 1.
 
 \begin{algorithm}
-\caption{Fire Brigade}
+\caption{Working Principle of \emph{Fire Brigade}}
 \begin{algorithmic}
 
 \IF {(agent is inside refuge) and (water capacity of the fire truck is not full)}
@@ -424,10 +386,10 @@ Pseudo code for the algorithm that fire brigade follows is described in Pseudo-A
 \end{algorithm}
 
 
-%---------------------------Put this in gym section ---------------------------------------------
-At the starting of the simulation, a random building ID is provided to the Fire Brigade. After reaching its destination, the state information and the reward value is calculated and fed to the neural network which then outputs a vector of length equal to the number of building ID's. This vector is then passed through a softmax layer and then an Argmax layer which eventually gives the ID of the building to be visited next by our agent. 
+% %---------------------------Put this in gym section ---------------------------------------------
+% At the starting of the simulation, a random building ID is provided to the Fire Brigade. After reaching its destination, the state information and the reward value is calculated and fed to the neural network which then outputs a vector of length equal to the number of building ID's. This vector is then passed through a softmax layer and then an Argmax layer which eventually gives the ID of the building to be visited next by our agent. 
 
-%-------------------------------------------------------------------------------------------------
+% %-------------------------------------------------------------------------------------------------
 
 \section{Defining State Space, Action Space and Reward function}
 
@@ -460,7 +422,7 @@ State space has three parts. The first part is the building information which co
 
 \subsection{Action Space} 
     
-The only action available to our agent is to move to the building which is on fire and therefore the action space consists of the ID's of the buildings. Note that extinguishing fire and refilling water are default characteristics of our agent i.e. whenever our agent is near a building on fire, it will try to extinguish it and whenever it is out of water, it will move to the refuge to refill the tank. Therefore these actions are not included in the action space. Detailed information about how the actions are performed as described in section 4.
+The only action available to our agent is to move to the building which is on fire and therefore the action space consists of the ID's of the buildings. Note that extinguishing fire and refilling water are default characteristics of our agent i.e. whenever our agent is near a building on fire, it will try to extinguish it and whenever it is out of water, it will move to the refuge to refill the tank. Therefore these actions are not included in the action space. 
     
 \subsection{Reward Function}
         
@@ -495,78 +457,66 @@ Since the ultimate goal of the fire brigades is to extinguish fire as quickly as
  9-10 & Totally burned\\
  \hline
 \end{tabular}
-\caption{Fieryness severity}
+\caption{Fieryness severity according to fieryness value}
 \label{table:FierynessSeverity}
 \end{center}
 \end{table}
 
 \section{Model Architecture}
 
-We use DQN and PPO architecture with a few modifications. We do not have the set of convolutional layers since the input to the neural networks is not an image. The input to the network is state representation and there is a separate output unit for each possible action. Different architectures were used for small map and big map which are mentioned in the following sections. 
-
-\subsection{Model Architecture for Small Map} The 3 layer neural network consists of two fully connected (FC) layers having 64 units each (Figure ~\ref{fig:27}). It is followed by a softmax layer. The output layer is a fully connected linear layer with single output for each possible action. Every agent has its own neural network copy in order to allow it to learn its own local policy since every agent is trained independently. Note that environment here is fully observable. 
+We use DQN and PPO architecture with a few modifications. We do not have the set of convolutional layers since the input to the neural networks is not an image. The input to the network is state representation and there is a separate output unit for each possible action. Stable baselines has the option of using different architectures where we can change the number of hidden layers, use LSTM, use CNN or combine CNN and LSTM. We tried different architectures while training the model. As an example of one of the architecture we tried, consider Figure ~\ref{fig:27}. Input the neural network is not only the state information of the current agent but also other agents. The state information is fed to the first hidden layer having 64 units followed by another fully connected hidden layer with 64 units. The output to the second hidden layer is passed through a softmax layer. Dimension of the softmax layer is equal to the number of actions possible i.e. number of buildings present in the map. 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=14cm]{27}
-    \caption{\textbf{Schematic Illustration of the Neural Network:} The input to the neural network is the state information which consists of a vector of length 94 having agent 1's current (X, Y) coordinates, water level, health, agent 2's current location, temperature, fieryness of the buildings and busy/idle condition. This is followed by 2 fully connected layers and a softmax and argmax layers to finally give a single action for the agent. The same architecture is used for second fire brigade also}
+    \includegraphics[width=17cm]{27}
+    \caption{Schematic Illustration of the Model Architecture}
     \label{fig:27}
 \end{figure}
 
-\subsection{Model Architecture for Big Map} The 3 layer neural network consists of two fully connected (FC) layers having 64 units each (Figure ~\ref{fig:27}). It is followed by a softmax layer. The output layer is a fully connected linear layer with single output for each possible action. Every agent has its own neural network copy in order to allow it to learn its own local policy since every agent is trained independently. 
+\section{Hyperparameter Search}
 
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=14cm]{27}
-    \caption{\textbf{Schematic Illustration of the Neural Network:} The input to the neural network is the state information which consists of a vector of length 94 having agent 1's current (X, Y) coordinates, water level, health, agent 2's current location, temperature, fieryness of the buildings and busy/idle condition. This is followed by 2 fully connected layers and a softmax and argmax layers to finally give a single action for the agent. The same architecture is used for second fire brigade also}
-    \label{fig:27}
-\end{figure}
-
-\section{Hyperparameters}
+For DQN and PPO, different parameter were tweaked like batch size, learning rate, discount factor. For each parameter setting, 5 repetitions were done and the average value of the reward was calculated. Ranges of the parameter that were tried can be found in Table ~\ref{table:DQNRangesHyperparameter}. 400 episodes were run for "Small" map and 5000 episodes were run for "Big" map. 
 
 \begin{table} [!h]
 \begin{center}
- \begin{tabular}{l | l | l} 
+ \begin{tabular}{l | l | l | l} 
  \hline
- Parameter & Small Map & Big Map  \\ [0.5ex] 
+ Parameter & Range & Best - Small Map & Best - Big Map  \\ [0.5ex] 
  \hline\hline
- Training Episodes & 1000 & 1000\\
- Testing Episodes & 1000 & 1000\\
- Discount factor ($\gamma$) & 0.99 & 0.99 \\ 
- Replay buffer size & 50000 & 50000\\
- Learning rate & 5e-4 & 5e-4\\
- Exploration $\epsilon$ & 1.0 $\rightarrow$ 0.02 & 1.0 $\rightarrow$ 0.02\\ 
- Exploration Fraction & 0.1 & 0.1\\
- Minibatch size B & 32 & 32\\
- Steps of the model before learning starts & 1000 & 1000\\
- Target network update frequency steps & 500 & 500\\
+ Discount factor ($\gamma$) & {.99, .993, .997, .999} & 0.99 & 0.99 \\ 
+ Replay buffer size & 50000 & 50000 & 50000\\
+ Learning rate & 1e−7 $\rightarrow$ 1e−3 & 5e-4 & 5e-4\\
+ Exploration $\epsilon$ & 1.0 $\rightarrow$ 0.02 & 0.01 & 0.01\\ 
+ n-step & {32, 64, 128, 256} & 32 & 32\\
+ Optimizer & Adam & Adam & Adam \\ 
+ Target network update frequency steps & 500 & 500 & 500\\
  \hline
 \end{tabular}
-\caption{Hyperparameters for DQN}
-\label{table:x}
+\caption{DQN: Ranges used during hyper-parameter search and final values used for experiments with scoring}
+\label{table:DQNRangesHyperparameter}
 \end{center}
 \end{table}
 
 \begin{table} [!h]
 \begin{center}
- \begin{tabular}{l | l | l} 
+ \begin{tabular}{l | l | l | l} 
  \hline
- Parameter & Small Map & Big Map  \\ [0.5ex] 
+ Parameter & Range & Best - Small Map & Best - Big Map  \\ [0.5ex] 
  \hline\hline
- Training Episodes & 1000 & 1000\\
- Testing Episodes & 1000 & 1000\\
- Discount factor ($\gamma$) & 0.99 & 0.99 \\ 
- Replay buffer size & 50000 & 50000\\
- Learning rate & 5e-4 & 5e-4\\
- Exploration $\epsilon$ & 1.0 $\rightarrow$ 0.02 & 1.0 $\rightarrow$ 0.02\\ 
- Exploration Fraction & 0.1 & 0.1\\
- Minibatch size B & 32 & 32\\
- Steps of the model before learning starts & 1000 & 1000\\
- Target network update frequency steps & 500 & 500\\
+ Discount factor ($\gamma$) & {.99, .993, .997, .999} & 0.99 & 0.99 \\ 
+ Entropy Coefficient & 0.003 & 0.003 & 0.003 \\
+ Replay buffer size & 50000 & 50000 & 50000\\
+ Learning rate & 1e−7 $\rightarrow$ 1e−3 & 5e-4 & 5e-4\\
+ Exploration $\epsilon$ & 1.0 $\rightarrow$ 0.02 & 0.01 & 0.01\\ 
+ Exploration Fraction & 0.1 & 0.1 & 0.1\\
+ Minibatch size B & 32 & 32 & 32\\
+ Steps of the model before learning starts & 1000 & 1000 & 1000\\
+ Target network update frequency steps & 500 & 500 & 500\\
+ Optimizer & Adam & Adam & Adam \\ 
  \hline
 \end{tabular}
-\caption{Hyperparameters for PPO}
-\label{table:x}
+\caption{PPO: Ranges used during hyper-parameter search and final values used for experiments with scoring}
+\label{table:PPORangesHyperparameter}
 \end{center}
 \end{table}
 
@@ -574,16 +524,15 @@ We use DQN and PPO architecture with a few modifications. We do not have the set
 
 In order to device the model presented in Chapter 3 and prove its concepts, an OpenAI gym environment \cite{brockman2016openai} was created that allowed developing agents which are capable of extinguishing fire in the city. 
 
-OpenAI is a framework that defines a standard structure that a DRL agent can be built with, that makes the structure of the agent easy to recognize by any developer and makes the agent compatible with any environment. 
+OpenAI is a framework which defines a standard structure that a DRL agent can be built with, thus making the structure of the agent easy to recognize by any developer and makes the agent compatible with any environment. 
 
-Since OpenAI is built on Python, it can be easily connected with state-of-art DRL framework such as Tensorflow \cite{Abadi} with gym agents and use DRL techniques that use those frameworks provide. There are certain example algorithms available in OpenAI gym which simplifies the testing on a new environment. 
-
+Since OpenAI is built in Python, it can be easily connected with state-of-art DRL framework such as Tensorflow \cite{Abadi} with gym agents and use DRL techniques that use those frameworks provide. There are certain example algorithms available in OpenAI gym which simplifies the testing on a new environment. 
 
 The conceptual model of RCRS gym environment is presented in Figure ~\ref{fig:OpenAIgymRCRS}. Section 4.1 elaborates about the setup that was created to adapt RCRS to allow the training of DRL agents. In Section ~\ref{Experiments}, experiments that were carried out will be detailed and in Section ~\ref{Analysis}, results will be analyzed. 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=14cm]{OpenAIgymRCRS.png}
+    \includegraphics[height=10cm, width=17cm]{OpenAIgymRCRS.png}
     \caption{Conceptual model of the RCRS Gym environment and agent}
     \label{fig:OpenAIgymRCRS}
 \end{figure}
@@ -648,7 +597,7 @@ In order to test the algorithms, two maps were chosen. A "Small" map having fewe
 
 Having a standard architecture where a reinforcement learning agent can be developed will be really helpful and this is what OpenAI gym provides. This standard architecture helps compare performance of different reinforcement learning algorithms in the same environment. 
 
-OpenAI Gym maintains a repository known as \emph{baselines} \cite{baselines}, which has examples of implementations of state-of-art DRL methods. But baselines have certain drawbacks that \emph{stable baselines} tried to rectify like having a unified structure for all the algorithms, well documented functions and classes and PEP8 compliant. Hence we decided to go with stable baselines \cite{stable-baselines}. 
+OpenAI Gym maintains a repository known as \emph{baselines} \cite{baselines}, which has examples of implementations of state-of-art DRL methods. But baselines have certain drawbacks that \emph{stable baselines} tried to rectify like having a unified structure for all the algorithms, well documented functions and classes and PEP8 compliant. Hence we decided to go with stable baselines \footnote{\url{https://stable-baselines.readthedocs.io/en/master/}}  \cite{stable-baselines}. 
 
 These implementations can be used to validate the environment. The defined gym interface is made of two methods that the agent will use to interact with the environment:
 
@@ -729,11 +678,13 @@ Lets elaborate on the two methods that were defined in Section ~\ref{OpenAIGym} 
 
 First, \emph{reset} function is called first and the working is explained in Algorithm ~\ref{alg:ResetAlgo}. By calling the \emph{reset} function, agent expects the initial state information. To obtain that, RCRS and gRPC server starts. Initial state is always the starting position of the fire brigades which can be pre-decided before running the simulations.
 
-After the simulation starts, gym agent sends a random action to the RCRS server using \emph{step} function which then acts in the environment and sends back the next state information, reward value and if the episode is done or not. An episode is done only after 100 timesteps for "Small" map and after 250 timesteps for "Large" map. The reason for selecting different timesteps for an episode to end was that official RCRS Competition is run for 250 timesteps for "Large" map. But for "Small" map, 250 timesteps was more than enough for all the fire brigades to extinguish the fire in all the buildings. Hence, we decided to reduce that time to 100 timesteps which was sufficient to see if the agents are actually learning or not. The algorithm for step function is mentioned in Algorithm 
+After the simulation starts, gym agent sends a random action to the RCRS server using \emph{step} function which then acts in the environment and sends back the next state information, reward value and if the episode is done or not. Pictorial representation of the working RCRS-gym working is shown in Figure ~\ref{fig:23}. 
+
+An episode is done only after 100 timesteps for "Small" map and after 250 timesteps for "Large" map. The reason for selecting different timesteps for an episode to end was that official RCRS Competition is run for 250 timesteps for "Large" map. But for "Small" map, 250 timesteps was more than enough for all the fire brigades to extinguish the fire in all the buildings. Hence, we decided to reduce that time to 100 timesteps which was sufficient to see if the agents are actually learning or not. The algorithm for step function is mentioned in Algorithm 
 
 \begin{algorithm}[H]
 \SetAlgoLined
-\KwResult{Write here the result }
+\KwData{Write here the result }
  initialization\;
  \While{While condition}{
   instructions\;
@@ -765,6 +716,13 @@ After the simulation starts, gym agent sends a random action to the RCRS server 
  \label{alg:StepAlgo}
 \end{algorithm}
 
+\begin{figure}[!h]
+    \centering
+    \includegraphics[height=10cm, width=17cm]{23}
+    \caption{The neural network takes in state information and the reward collected at every timestep from the environment. State information contains (X,Y) coordinates, water level, health of the all the agents and temperature, fieryness of the buildings present. The neural network processes this information and outputs a building ID where the fire brigade needs to move next}
+    \label{fig:23}
+\end{figure}
+
 \section{Experiments} \label{Experiments}
 
 To start the testing and see if reinforcement learning can actually be applied to RCRS, we started with doing the experiments on the "Small" map. PPO and DQN algorithm were applied to the simulator and the results were compared with a greedy approach where the agents would always extinguish the building with highest fieryness value. 
@@ -784,7 +742,7 @@ Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=14cm]{PPO.png}
+    \includegraphics[width=17cm]{PPO.png}
     \caption{PPO: Fire Brigades learning to extinguish fire over 250 episodes. After 5 episodes, there was hardly any learning with most of the buildings either critically or totally burnt. After 250 episodes, agents learnt the critical buildings that need to be extinguished}
     \label{fig:PPOLearningSmallMap}
 \end{figure}
@@ -794,7 +752,7 @@ Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=14cm]{DQN.png}
+    \includegraphics[width=17cm]{DQN.png}
     \caption{DQN: Fire Brigades learning to extinguish fire over 250 episodes}
     \label{fig:DQNLearningSmallMap}
 \end{figure}
@@ -809,9 +767,6 @@ Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} 
 \end{figure}
 
 \chapter{Conclusion and Future Work}
-\appendix
-\chapter{Plots}
-\chapter{Tables}
 
 
 %\addcontentsline {toc}{chapter}{Bibliography} 
