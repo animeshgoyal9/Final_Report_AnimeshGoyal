@@ -96,7 +96,7 @@
 \begin{thesisacknowledgments}       
 First and foremost I would like to thank my advisor, Peter Stone, for his guidance and encouragement throughout this report. He always made himself available to provide help and I could always count on his lightning-fast email responses. He gave me autonomy in finding a research topic and provided the right amount of guidance to help me make progress when I felt stuck. It has been a privilege to work with him. Garrett Warnell and Tsz-Chiu Au deserves a special thanks as collaborators and mentors throughout my research. They have provided invaluable help, especially with regards to their extensive reviews of my writing. Discussions with them have helped me flesh out ideas fully, and my writing and research ability have improved through their mentorship.    
 
-I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input with her experience with Java and gRPC. She was always very helpful and supportive. Ashutosh Shukla reviewed several of my work and and provided extensive feedback. His constant motivation was very encouraging throughout my research. I would also like to thank Ishan Durugkar and Siddharth for being always available to solve any doubts that I had regarding the simulator. 
+I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input with her experience in Java and gRPC. She was always been very helpful and supportive. Ashutosh Shukla reviewed several of my work and provided extensive feedback. His constant motivation was very encouraging throughout my research. I would also like to thank Ishan Durugkar and Siddharth for being always available to solve any doubts that I had regarding the simulator. 
 
 This work has taken place in the Learning Agents Research Group (LARG) at the Artificial Intelligence Laboratory, The University of Texas at Austin.  LARG research is supported in part by grants from
 the National Science Foundation (CPS-1739964, IIS-1724157, NRI-1925082), the Office of Naval Research (N00014-18-2243), Future of Life Institute (RFP2-000), Army Research Laboratory, DARPA, Lockheed
@@ -124,7 +124,6 @@ Using two DRL algorithms, Deep Q-Network and Proximal Policy Optimization, we we
 
 \addcontentsline{toc}{chapter}{List of Figures}%
 \listoffigures
-
 \newpage
 \addcontentsline{toc}{chapter}{List of Algorithms}%
 \listofalgorithms
@@ -134,7 +133,6 @@ Using two DRL algorithms, Deep Q-Network and Proximal Policy Optimization, we we
 \newpage
 
 \chapter{Introduction}            
-
 
 On April 2019, OpenAI's DOTA 2 beat 99.4 percent of players in public matches \cite{dota2}. On October 2019, DeepMind's StarCraft II AI was able to play better than 99.8 percent of all humans \cite{Starcraft2}. These are milestone achievements where artificial intelligence has been used in the area of Multi Agent Systems (MAS). Although different techniques and algorithms were used in the above scenarios, in general, they are all a combination of techniques from two main areas: Reinforcement Learning and Deep Learning. 
 
@@ -386,11 +384,6 @@ Pseudo code for the algorithm that fire brigade follows is described in Pseudo-A
 \end{algorithm}
 
 
-% %---------------------------Put this in gym section ---------------------------------------------
-% At the starting of the simulation, a random building ID is provided to the Fire Brigade. After reaching its destination, the state information and the reward value is calculated and fed to the neural network which then outputs a vector of length equal to the number of building ID's. This vector is then passed through a softmax layer and then an Argmax layer which eventually gives the ID of the building to be visited next by our agent. 
-
-% %-------------------------------------------------------------------------------------------------
-
 \section{Defining State Space, Action Space and Reward function}
 
 The first step in applying reinforcement learning algorithms involves defining state space, action space and reward function. 
@@ -415,7 +408,7 @@ State space has three parts. The first part is the building information which co
     \multirow Busy/idle Information & Binary variable & 0/1 \\ 
     \hline
     \end{tabular}
-    \caption{Ranges for values}
+    \caption{Ranges for state information parameters}
     \label{table:StateInfoTable}
     \end{center}
     \end{table}
@@ -475,52 +468,52 @@ We use DQN and PPO architecture with a few modifications. We do not have the set
 
 \section{Hyperparameter Search}
 
-For DQN and PPO, different parameter were tweaked like batch size, learning rate, discount factor. For each parameter setting, 5 repetitions were done and the average value of the reward was calculated. Ranges of the parameter that were tried can be found in Table ~\ref{table:DQNRangesHyperparameter}. 400 episodes were run for "Small" map and 5000 episodes were run for "Big" map. 
+For DQN and PPO, different parameter were tweaked like batch size, learning rate, discount factor. For each parameter setting, 5 repetitions were done and the average value of the reward was calculated. Values of the parameter that were tried can be found in Table ~\ref{table:DQNRangesHyperparameter}. 400 episodes were run for "Small" map and 5000 episodes were run for "Big" map. 
 
 \begin{table} [!h]
 \begin{center}
- \begin{tabular}{l | l | l | l} 
+ \begin{tabular}{l | l} 
  \hline
- Parameter & Range & Best - Small Map & Best - Big Map  \\ [0.5ex] 
+ Parameter & Values \\ [0.5ex] 
  \hline\hline
- Discount factor ($\gamma$) & {.99, .993, .997, .999} & 0.99 & 0.99 \\ 
- Replay buffer size & 50000 & 50000 & 50000\\
- Learning rate & 1e−7 $\rightarrow$ 1e−3 & 5e-4 & 5e-4\\
- Exploration $\epsilon$ & 1.0 $\rightarrow$ 0.02 & 0.01 & 0.01\\ 
- n-step & {32, 64, 128, 256} & 32 & 32\\
- Optimizer & Adam & Adam & Adam \\ 
- Target network update frequency steps & 500 & 500 & 500\\
+ Discount factor ($\gamma$) & {.99, .993, .997, .999}\\
+ n-step & {32, 64, 128, 256}\\
+ Entropy Coefficient & 0.01\\
+ Learning rate & log-uniform (1e−7 $\rightarrow$ 1e−3) \\
+ Value Function Coefficient & 0.5 \\
+ Gradient Clipping value & 0.5 \\
+ Number of training minibatches & 4 \\
+ Clip Range & 0.2\\
+ Optimizer & Adam \\ 
  \hline
 \end{tabular}
-\caption{DQN: Ranges used during hyper-parameter search and final values used for experiments with scoring}
+\caption{PPO: Values used during hyper-parameter search and final values used for experiments with scoring}
 \label{table:DQNRangesHyperparameter}
 \end{center}
 \end{table}
 
 \begin{table} [!h]
 \begin{center}
- \begin{tabular}{l | l | l | l} 
+ \begin{tabular}{l | l } 
  \hline
- Parameter & Range & Best - Small Map & Best - Big Map  \\ [0.5ex] 
+ Parameter & Values  \\ [0.5ex] 
  \hline\hline
- Discount factor ($\gamma$) & {.99, .993, .997, .999} & 0.99 & 0.99 \\ 
- Entropy Coefficient & 0.003 & 0.003 & 0.003 \\
- Replay buffer size & 50000 & 50000 & 50000\\
- Learning rate & 1e−7 $\rightarrow$ 1e−3 & 5e-4 & 5e-4\\
- Exploration $\epsilon$ & 1.0 $\rightarrow$ 0.02 & 0.01 & 0.01\\ 
- Exploration Fraction & 0.1 & 0.1 & 0.1\\
- Minibatch size B & 32 & 32 & 32\\
- Steps of the model before learning starts & 1000 & 1000 & 1000\\
- Target network update frequency steps & 500 & 500 & 500\\
- Optimizer & Adam & Adam & Adam \\ 
+ Discount factor ($\gamma$) & {.99, .993, .997, .999}\\ 
+ Learning rate & log-uniform (1e−7 $\rightarrow$ 1e−3) \\
+ Buffer size & {25000, 50000, 100000} \\
+ Exploration Fraction & 0.1\\
+ Batch size & {32, 64, 128, 256} \\
+ Learning starts & {1000, 2000} \\
+ Target Network update frequency & 500\\
+ Optimizer & Adam \\ 
  \hline
 \end{tabular}
-\caption{PPO: Ranges used during hyper-parameter search and final values used for experiments with scoring}
+\caption{DQN: Values used during hyper-parameter search and final values used for experiments with scoring}
 \label{table:PPORangesHyperparameter}
 \end{center}
 \end{table}
 
-\chapter{RCRS Gym Environment: Setup, Experiments, Analysis}
+\chapter{RCRS Gym Environment: Setup, Experiments and Results}
 
 In order to device the model presented in Chapter 3 and prove its concepts, an OpenAI gym environment \cite{brockman2016openai} was created that allowed developing agents which are capable of extinguishing fire in the city. 
 
@@ -528,7 +521,7 @@ OpenAI is a framework which defines a standard structure that a DRL agent can be
 
 Since OpenAI is built in Python, it can be easily connected with state-of-art DRL framework such as Tensorflow \cite{Abadi} with gym agents and use DRL techniques that use those frameworks provide. There are certain example algorithms available in OpenAI gym which simplifies the testing on a new environment. 
 
-The conceptual model of RCRS gym environment is presented in Figure ~\ref{fig:OpenAIgymRCRS}. Section 4.1 elaborates about the setup that was created to adapt RCRS to allow the training of DRL agents. In Section ~\ref{Experiments}, experiments that were carried out will be detailed and in Section ~\ref{Analysis}, results will be analyzed. 
+The conceptual model of RCRS gym environment is presented in Figure ~\ref{fig:OpenAIgymRCRS}. Section 4.1 elaborates about the setup that was created to adapt RCRS to allow the training of DRL agents. In Section ~\ref{Experiments}, experiments that were carried out will be detailed and results will be analyzed. 
 
 \begin{figure}[!h]
     \centering
@@ -549,20 +542,6 @@ RCRS is written in Java and OpenAI gym in Python. There has to be a communicatio
 
 Finally, the overall implementation of RCRS-gym environment will be discussed in Section ~\ref{RCRSGymImplementation}. 
 
-% Most of the Reinforcement learning algorithms are written in python. Since our aim is to build a simulator that is not only useful for our research work but can be used for future research by the community as well, we decided to integrate RCRS with gym that provides at easy-to-use suite of reinforcement learning tasks \cite{brockman2016openai}. Below is an example code that will run a random agent in our environment:
-% \begin{lstlisting}
-
-% import RCRS_gym
-% import gym
-
-% env = gym.make('RCRS-v2')
-% env.reset()
-% done = False
-% while not done:
-%     action = env.action_space.sample()
-%     obs, rew, done, info = env.step(action)
-
-% \end{lstlisting}
 
 \subsection{RCRS Environment} \label{RCRSEnvironment}
 
@@ -595,7 +574,7 @@ In order to test the algorithms, two maps were chosen. A "Small" map having fewe
 
 \subsection{OpenAI Gym} \label{OpenAIGym}
 
-Having a standard architecture where a reinforcement learning agent can be developed will be really helpful and this is what OpenAI gym provides. This standard architecture helps compare performance of different reinforcement learning algorithms in the same environment. 
+Having a standard architecture where a reinforcement learning agent can be developed will be really helpful and this is what OpenAI gym provides. This standard architecture helps compare performance of different reinforcement learning algorithms in the same environment \cite{brockman2016openai}. 
 
 OpenAI Gym maintains a repository known as \emph{baselines} \cite{baselines}, which has examples of implementations of state-of-art DRL methods. But baselines have certain drawbacks that \emph{stable baselines} tried to rectify like having a unified structure for all the algorithms, well documented functions and classes and PEP8 compliant. Hence we decided to go with stable baselines \footnote{\url{https://stable-baselines.readthedocs.io/en/master/}}  \cite{stable-baselines}. 
 
@@ -627,6 +606,8 @@ Apart from the above mentioned functions, there are two more important attribute
     
     \item \emph{observation space}: The space that defines the dimension of the environment's state. Possible values are the same as listed for action space. 
 \end{itemize}
+
+In our case, since the actions are discrete, we selected Discrete action space. States are values that have integers as well as floating numbers between 0 to 15000, we decided to select Box state space that would allow all the values between 0 to 15000 to be possible. 
 
 \subsection{Communication between Java and Python} \label{CommunicationJavaPython}
 
@@ -676,11 +657,26 @@ service RCRSGymService {
 
 Lets elaborate on the two methods that were defined in Section ~\ref{OpenAIGym} and show how the agents act in the environment using OpenAI gym. 
 
-First, \emph{reset} function is called first and the working is explained in Algorithm ~\ref{alg:ResetAlgo}. By calling the \emph{reset} function, agent expects the initial state information. To obtain that, RCRS and gRPC server starts. Initial state is always the starting position of the fire brigades which can be pre-decided before running the simulations.
+First, \emph{reset} function is called. By calling the \emph{reset} function, agent expects the initial state information. To obtain that, RCRS and gRPC server starts. Initial state is always the starting position of the fire brigades which can be pre-decided before running the simulations.
 
 After the simulation starts, gym agent sends a random action to the RCRS server using \emph{step} function which then acts in the environment and sends back the next state information, reward value and if the episode is done or not. Pictorial representation of the working RCRS-gym working is shown in Figure ~\ref{fig:23}. 
 
 An episode is done only after 100 timesteps for "Small" map and after 250 timesteps for "Large" map. The reason for selecting different timesteps for an episode to end was that official RCRS Competition is run for 250 timesteps for "Large" map. But for "Small" map, 250 timesteps was more than enough for all the fire brigades to extinguish the fire in all the buildings. Hence, we decided to reduce that time to 100 timesteps which was sufficient to see if the agents are actually learning or not. 
+
+An example code that will run a random agent in RCRS environment is provided in Listing ~\ref{lst:WorkingofRCRSGym}:
+
+\begin{lstlisting} [language=Python, label={lst:WorkingofRCRSGym}, caption=Example code that will run a random agent in RCRS environment] 
+import RCRS_gym
+import gym
+
+env = gym.make('RCRS-v2')
+env.reset()
+done = False
+while not done:
+    action = env.action_space.sample()
+    obs, rew, done, info = env.step(action)
+
+\end{lstlisting}
 
 \begin{figure}[!h]
     \centering
@@ -689,15 +685,61 @@ An episode is done only after 100 timesteps for "Small" map and after 250 timest
     \label{fig:23}
 \end{figure}
 
-\section{Experiments} \label{Experiments}
+\section{Experiments and Results} \label{Experiments}
 
-To start the testing and see if reinforcement learning can actually be applied to RCRS, we started with doing the experiments on the "Small" map. PPO and DQN algorithm were applied to the simulator and the results were compared with a greedy approach where the agents would always extinguish the building with highest fieryness value. 
+To start the testing and see if deep reinforcement learning works on RCRS, we started with experimenting on "Small" map. PPO and DQN algorithm were applied to the simulator and the results were compared with a greedy approach where the agents would always extinguish the building with highest fieryness value. 
 
-\subsection{Small Map Experiments}
+\subsection{Small Map Experiments and Results}
 
-Simulations were run for 400 episodes (40,000 timesteps) and mean and standard deviation of the reward is calculated after every 5 episodes. Since greedy algorithm wasn't learning, it had a constant reward value of 6.33. DQN achieved a highest cumulative reward of 5.89 and PPO achieved a highest cumulative reward of 5.88. Figure ~\ref{fig:SmallMapResults} shows that both the algorithms were able to learn in the environment improving their cumulative rewards over time. However, DQN attained highest cumulative reward in less number of episodes than PPO showing that it is a more effective algorithm for "Small" map setting.  
+Simulations were run for 400 episodes (40,000 timesteps). Out of the several model architectures that were tried, a two hidden layer neural network, each layer having 64 units gave the best results for DQN. For PPO, a neural network having four fully connected layers, where first two layers had 128 units and last two layers had 64 units gave the best result along with the use of LSTM. Best hyperparameters are listed in Table ~\ref{table:BestDQNHyperparameter}
+and Table ~\ref{table:BestPPOHyperparameter}. 
 
-Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} show how the agents gets better at extinguishing fire over the episodes. After 5 episodes, both the algorithms were performing badly with most of the buildings are critically or totally burnt. After 150 episodes, agents started learning and fewer number of buildings were on fire. After 250 episodes, DQN was able to successfully figure out the buildings that caused the fire to spread throughout the map and able to extinguish fire in those buildings. PPO was performing better than how it was performing after 150 episodes, but still not as good as DQN. After 300 episodes, PPO was also able to successfully extinguish the critical buildings. For better visualization on how the agents performed over episodes, refer to the \href{https://github.com/animeshgoyal9/RoboCup_Rescue_Simulator_Gym_Integration} {GitHub page}. 
+\begin{table} [!h]
+\begin{center}
+ \begin{tabular}{l | l} 
+ \hline
+ Parameter & Best - Small Map  \\ [0.5ex] 
+ \hline\hline
+ Discount factor ($\gamma$) & 0.99  \\
+ n-step & 32\\
+ Entropy Coefficient & 0.01\\
+ Learning rate & 5e-4\\
+ Value Function Coefficient & 0.5\\
+ Gradient Clipping value &  0.5\\
+ Number of training minibatches & 4\\
+ Clip Range & 0.2\\
+ Optimizer & Adam  \\ 
+ \hline
+\end{tabular}
+\caption{PPO: Best hyperparameters}
+\label{table:BestDQNHyperparameter}
+\end{center}
+\end{table}
+
+\begin{table} [!h]
+\begin{center}
+ \begin{tabular}{l | l} 
+ \hline
+ Parameter & Best - Small Map  \\ [0.5ex] 
+ \hline\hline
+ Discount factor ($\gamma$) & 0.99 \\ 
+ Learning rate & 5e-4\\
+ Buffer size & 50000 \\
+ Exploration Fraction & 0.1\\
+ Batch size  & 64\\
+ Learning starts & 1000\\
+ Target Network update frequency & 500\\
+ Optimizer & Adam \\ 
+ \hline
+\end{tabular}
+\caption{DQN: Best hyperparameters}
+\label{table:BestPPOHyperparameter}
+\end{center}
+\end{table}
+
+Mean and standard deviation of the reward is calculated after every 5 episodes. Since greedy algorithm wasn't learning, it had a constant reward value of 6.33. DQN achieved a highest cumulative reward of 5.89 and PPO achieved a highest cumulative reward of 5.88. Figure ~\ref{fig:SmallMapResults} shows that both the algorithms were able to learn in the environment improving their cumulative rewards over time. However, DQN attained highest cumulative reward in less number of episodes than PPO showing that it is a more effective algorithm for "Small" map setting.  
+
+Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} show how the agents gets better at extinguishing fire over the episodes. After 5 episodes, both the algorithms were performing badly with most of the buildings critically or totally burnt. After 150 episodes, agents started learning and higher number of buildings were extinguished. After 250 episodes, DQN was able to successfully figure out the buildings that caused the fire to spread throughout the map and was able to extinguish fire in those buildings. PPO was performing better than how it was performing after 150 episodes, but still not as good as DQN. After 300 episodes, PPO was also able to successfully extinguish the critical buildings. For better visualization on how the agents performed over episodes, refer to the \href{https://github.com/animeshgoyal9/RoboCup_Rescue_Simulator_Gym_Integration} {GitHub page}. 
 
 \begin{figure}[!h]
     \centering
@@ -713,17 +755,15 @@ Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} 
     \label{fig:PPOLearningSmallMap}
 \end{figure}
 
-\subsection{Big Map Experiments}
-
-
 \begin{figure}[!h]
     \centering
     \includegraphics[width=17cm]{DQN.png}
-    \caption{DQN: Fire Brigades learning to extinguish fire over 250 episodes}
+    \caption{DQN: Fire Brigades learning to extinguish fire over 250 episodes. After 5 episodes, there was hardly any learning with most of the buildings either critically or totally burnt. After 250 episodes, agents learnt the critical buildings that need to be extinguished}
     \label{fig:DQNLearningSmallMap}
 \end{figure}
 
-\section{Analysis} \label{Analysis}
+\subsection{Big Map Experiments and Results}
+---------------------------------Still in progress---------------------------------
 
 % \begin{figure}[!h]
 %     \centering
@@ -733,6 +773,16 @@ Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} 
 % \end{figure}
 
 \chapter{Conclusion and Future Work}
+
+In this report, we have presented how deep reinforcement learning can be applied to a multiagent scenario, specifically to RoboCup Rescue Simulator.We have built a RCRS-gym interface that will allow different RL algorithms to be applied to the simulator. The interface created provides an easy setup for developers to research RCRS using Python framework. The gRPC communication between Java and Python is also a feature that proved important to send actions and receive state information. 
+
+We evaluated two state-of-the-art DRL algorithms, Proximal Policy Optimization (PPO) and Deep Q-Networks (DQN). Both the algorithms were trained on two map setting: "Small" map and "Big" map. 
+
+PPO and DQN were both able to demonstrate learning on the "Small" map with average cumulative reward increasing over episodes. DQN converged quickly than PPO showing that it performed better as compared to PPO. However, these algorithms were slightly subpar when compared to Greedy algorithm where the agents would always extinguish the building with highest fieryness value. 
+
+This study demonstrated that successfully trained agents can indeed learn a strategy to extinguish the buildings on fire proving that RCRS is a suitable environment to apply Deep Reinforcement learning techniques. However, there are various avenues that can be studied as future research. Applying similar techniques for a bigger map setting can be the first line of direction of study for researchers. Is there a map setting where PPO and DQN performs better than greedy algorithm, are there situations where PPO learns quicker than DQN, can this be generalized by looking at the number of buildings in the map, are some of the questions that are still unanswered. 
+
+Another avenue to research for is how can we include other agents like police officers and ambulance teams to train them and accomplish their individual tasks successfully. Our current work assumes full observability to all the agents, future work can also focus on training the agents with partial observability. 
 
 
 %\addcontentsline {toc}{chapter}{Bibliography} 
