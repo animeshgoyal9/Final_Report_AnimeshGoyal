@@ -96,7 +96,7 @@
 \begin{thesisacknowledgments}       
 First and foremost I would like to thank my advisor, Peter Stone, for his guidance and encouragement throughout this report. He always made himself available to provide help and I could always count on his lightning-fast email responses. He gave me autonomy in finding a research topic and provided the right amount of guidance to help me make progress when I felt stuck. It has been a privilege to work with him. Garrett Warnell and Tsz-Chiu Au deserves a special thanks as collaborators and mentors throughout my research. They have provided invaluable help, especially with regards to their extensive reviews of my writing. Discussions with them have helped me flesh out ideas fully, and my writing and research ability have improved through their mentorship.    
 
-I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input with her experience in Java and gRPC. She was always been very helpful and supportive. Ashutosh Shukla reviewed several of my work and provided extensive feedback. His constant motivation was very encouraging throughout my research. I would also like to thank Ishan Durugkar and Siddharth for being always available to solve any doubts that I had regarding the simulator. 
+I would like to thank several of my peers and colleagues for the help they’ve provided during my report. Aastha Goyal has provided invaluable input with her experience in Java and gRPC. She was always been very helpful and supportive. Ashutosh Shukla reviewed several of my work and provided extensive feedback. His constant motivation was very encouraging throughout my research. Thank you, Jaynish Vaghela for brainstorming with me during OpenAI gym implementation. I would also like to thank Ishan Durugkar and Siddharth for being always available to solve any doubts that I had regarding the simulator. 
 
 This work has taken place in the Learning Agents Research Group (LARG) at the Artificial Intelligence Laboratory, The University of Texas at Austin.  LARG research is supported in part by grants from
 the National Science Foundation (CPS-1739964, IIS-1724157, NRI-1925082), the Office of Naval Research (N00014-18-2243), Future of Life Institute (RFP2-000), Army Research Laboratory, DARPA, Lockheed
@@ -106,15 +106,13 @@ Martin, General Motors, and Bosch.  Peter Stone serves as the Executive Director
 
 \begin{thesisabstract}               
 
-Recent advancement in the field of Artificial Intelligence have dealt with creating a winning strategy for games like Atari, DOTA 2 and StarCraft where agents learn how to finish their task successfully using reinforcement learning. As the capabilities have increased, the research community has sought games having increased complexity that seize different aspects of intelligence required to solve real-world problems. 
+Recent development in the field of Artificial Intelligence have dealt with building a winning strategy for video games where agents learn how to finish their task successfully using Deep Reinforcement Learning (DRL). The first major breakthrough came when Mnih et al. \cite{Mnih} showed how a DRL algorithm, termed Deep Q-Networks (DQN), can be applied to a collection of Atari 2600 games to surpass the performance of all previous algorithms and achieve a level that is comparable to a professional player. Their trained model received only raw pixels and game score as inputs to learn successful policies for single agents and was able to outperform professionals across a set of 49 Atari games. After a few years, focus shifted on training multiple agents using DRL, often known as multi-agent deep reinforcement learning (MADRL), for real time strategy games. Brockman et al. \cite{dota2} achieved superhuman performance in the game of DOTA 2 which involves multi-agent collaboration, spatial and temporal reasoning, adversarial planning, and opponent modeling. Using Proximal Policy Optimization (PPO) algorithm and a LSTM layer as the primary component of the neural network, their trained model was able to defeat the human champion team, Team OG by 2:0. Most recently, Vinyals et al. \cite{Starcraft2} showed how a MADRL model can achieve grandmaster level in the game of StarCraft II.  
 
-Large state space analysis and long term planning are one of the core requirements of strategic games in order to build a winning strategy. Building these winning strategies using deep reinforcement learning is a attractive as well as challenging task to work on specially when it incorporates multi-agent training where building the strategy is even more difficult. Applying deep reinforcement learning to such multiagent scenario is together known as Multiagent Deep Reinforcement learning (MADRL). 
+% This work explores strategic multiagent games as an environment for deep reinforcement learning research. Large state space analysis and long term planning are one of the core requirements of strategic games in order to build a winning strategy. Building these winning strategies using deep reinforcement learning is a attractive as well as challenging task to work on specially when it incorporates multi-agent training. 
 
-In this work, we apply MADRL to RoboCup Rescue Simulator (RCRS), which is part of the annual RoboCup Competition. RCRS is an open-source virtual environment that evaluates how effective multiple agents like ambulance team, police officer and fire brigades are in rescuing civilians and extinguishing fire from a city where an earthquake just happened. RCRS is challenging, easy to use and customize multi-agent scenario. 
+In this work, we apply MADRL to RoboCup Rescue Simulator (RCRS), which is part of the annual RoboCup Competition. RCRS is an open-source virtual environment that evaluates how effective multiple agents like ambulance team, police officer and fire brigades are in rescuing civilians and extinguishing fire from a city where an earthquake just happened. RCRS is challenging, easy to use and customize multi-agent scenario. In order to create RCRS environment where deep reinforcement learning algorithms can be tested, RCRS-gym, an open-source OpenAI Gym environment was developed. In this report, we have focused on training multiple fire brigades to collaboratively accomplish their task of extinguishing fire in the city. Fire Brigades were trained using two DRL algorithms: DQN and PPO. The performance of the algorithms was then compared with a greedy approach on two different map setting, "Small" map and "Big" map, each having different number of fire brigades and buildings. 
 
-In order to create RCRS environment where reinforcement learning algorithms can be tested, RCRS-gym, an open-source OpenAI Gym environment was created. We tested various algorithms for different map settings where number of agents and buildings were changed. 
-
-Using two DRL algorithms, Deep Q-Network and Proximal Policy Optimization, we were able to train the agents to successfully finish the task of extinguishing fire on the "Small" map thus proving that RCRS is a suitable environment for developing deep reinforcement learning agent in a strategic multiagent game scenario. "Big" map required more training time to make conclusions on the agent's final performance. 
+The agents were able to successfully finish their task of extinguishing fire on both map setting thus proving that RCRS is a suitable environment for developing deep reinforcement learning agent in a strategic multiagent game scenario. DQN outperformed PPO in the "Small" map setting while PPO outperformed a variant to DQN, H-DQN in the "Big" map setting. However, both the algorithms were not able to significantly outperform the greedy approach in either setting which opens up a promising avenue for future research. 
                                 
 \end{thesisabstract}                 
 
@@ -134,9 +132,9 @@ Using two DRL algorithms, Deep Q-Network and Proximal Policy Optimization, we we
 
 \chapter{Introduction}            
 
-On April 2019, OpenAI's DOTA 2 beat 99.4 percent of players in public matches \cite{dota2}. On October 2019, DeepMind's StarCraft II AI was able to play better than 99.8 percent of all humans \cite{Starcraft2}. These are milestone achievements where artificial intelligence has been used in the area of Multi Agent Systems (MAS). Although different techniques and algorithms were used in the above scenarios, in general, they are all a combination of techniques from two main areas: Reinforcement Learning and Deep Learning. 
+Artificial Intelligence (AI) in video games is a long standing research area. It deals with studying the complex interaction between agents and environment and training them using AI techniques to achieve human-level performance. The reason behind selecting video games is because they are safe, faster than real-time environment and can provide a large amount of data for the machine learning algorithm to be trained on. A few applications of AI in video games involves Open AI's DOTA 2 and DeepMind's StarCraft II. On April 2019, OpenAI built a DRL model for the game of DOTA 2 that was able to beat 99.4 percent of players in a public match \cite{dota2}. In the same year, DeepMind built a DRL model for StarCraft II that was able to perform better than 99.8 percent of all humans in a game of StarCraft II \cite{Starcraft2}. Both are real-time strategy games that involve multiple agents or players working towards achieving their respective objectives while interacting in a shared environment. These agents can communicate with each other and possibly coordinate their actions as well. Such systems commonly fall under the hood of Multi Agent Systems (MAS). As you may have noticed, both the models were trained using DRL techniques. The reason it proved so effective in achieving such performance is because it addressed several key challenges like handling high dimensional action and observation space, solving the problem of partially observed state space, and long time horizons \cite{dota2}. Together MAS and DRL are referred to as Multiagent Deep Reinforcement learning (MADRL) \cite{Shao}. 
 
-Reinforcement learning (RL) is an area of machine learning where agents learn what actions to take in certain environment that results in higher cumulative reward over time. However, one of the drawbacks of RL is that the state space or action space can become too large to be completely known. This is where neural networks can be particularly useful as they are very good function approximators. Neural Networks can learn to map states values, or state-action pairs to Q values. Rather than building a lookup table to store, index and update all possible states and their values, we can train a neural network on samples from the state or action space to learn to predict how valuable those are relative to our target in reinforcement learning. This is called Deep Reinforcement learning (DRL). 
+Currently, most of the work done in MADRL has been done in the field of video games. There is still a lot of work to be done for more realistic applications with complex environments, which are not necessarily vision based. One such domain is RoboCup Rescue Simulator (RCRS) (Figure ~\ref{fig:10}). RCRS is structured as a 2D discrete-time simulation system that depicts the situation after occurrence of earthquake in an urban area. It was built in response to the earthquake that hit the Japanese port city Kobe with a magnitude of 6.8 on richter scale \cite{Bilski} \cite{RoboCup}.
 
 \begin{figure}[!h]
     \centering
@@ -145,21 +143,18 @@ Reinforcement learning (RL) is an area of machine learning where agents learn wh
     \label{fig:10}
 \end{figure}
 
-Together MAS and DRL are referred to as Multiagent Deep Reinforcement learning (MADRL). Currently, most of the work done in MADRL has been done in the field of video games (e.g. Atari games) and there is still a lot of work to be done for more realistic applications with complex dynamics, which are not necessarily vision based. 
+RCRS involves tasks like removing blockades, extinguishing fire and rescuing civilians that are to be performed by three different agents: fire brigades, police officers and ambulance teams. These tasks are allocated in a centralized manner. A central agent manages all the agents and has the global knowledge \cite{Nair}. 
 
-One such domain is RoboCup Rescue Simulator (RCRS) (Figure ~\ref{fig:10}). RCRS is structured as a 2D discrete-time simulation system that depicts the situation after occurrence of earthquake in an urban area. Different agents like police officers, fire brigades and ambulance teams interact with the environment and with each other to accomplish tasks such as removing blockades, extinguishing fire and rescuing civilians. This task allocation can be handles in two ways: centralized or distributed. In centralized task allocation, a central agent manages all the agents and has the global knowledge whereas in case of distributed task allocation problem, each agent makes its own decisions and works only on its local information \cite{Nair}. 
-
-\textbf{Contributions:} In this report, using centralized task allocation approach we have applied Deep Reinforcement Learning (DRL) algorithms to RCRS in order to train multiple fire brigades to extinguish the fire in the city on different sized maps having different number of agents and total buildings. The major contributions are listed below: 
+\textbf{Contributions:} In this report, using centralized task allocation approach we have applied Multi-Agent Deep Reinforcement Learning (MADRL) algorithms to RCRS in order to train multiple fire brigades to extinguish fire in the city on different sized maps having different number of agents and buildings. The major contributions are listed below: 
 
 \begin{itemize}
     \item Built a RCRS-Gym interface, that can be utilized to apply various reinforcement learning algorithms to RCRS
     \item Evaluated state-of-the-art reinforcement learning algorithms on RCRS, providing an extensive set of results for comparison
-    \item Successfully trained the agents to learn a winning strategy thus proving that RCRS is a suitable environment for applying DRL 
+    \item Successfully trained the agents to learn an optimal policy thus proving that RCRS is a suitable environment for applying MADRL 
     \item Showcased promising future research directions in this environment i.e. partial observability and including police officer and ambulance as the agent
 \end{itemize}
 
-The rest of the report is structured as follows. Chapter 2 will help build important concepts that are important for understanding this project. Specifically it will explain the state-of-art DRL algorithms. In Chapter 3, detailed explanation of the simulator is done along with the state space, action space and reward function selected. In Chapter 4, implementation of the model in RCRS will be detailed along with the results. In Chapter 5, everything will be summarized and will discuss the future directions for the project. 
-
+The rest of the report is structured as follows. In Chapter 2, we will introduce the background of RL, DRL and MAS. In Chapter 3, we focus on recent MADRL methods and how RL has been applied to RCRS. In Chapter 4, we describe the RCRS domain in greater detail, define what the state space, action space and reward function is, and the model architecture that was selected for various algorithms. Then in Chapter 5, we move to the implementation part, RCRS-gym environment setup. We also discuss the experiments that were performed and the results we got. Finally, in Chapter 6, we draw conclusion and discuss future research direction. 
 
 \chapter{Background}                       
 
@@ -167,35 +162,65 @@ This chapter will briefly cover the basic but very important concepts like Reinf
 
 \section{Reinforcement learning}
 
-Reinforcement learning is modeled as a Markov decision process where the agent interacts with the environment to learn the actions in a certain state which would produce the highest reward. The reinforcement learning model is depicted in Figure ~\ref{fig:ReinforcementLearningModel} 
+Reinforcement learning is a type of ML method where the agents learn the optimal policy by trial and error \cite{Barto}. The agent interacts with the environment to learn the actions in a certain state which would produce the highest reward. The reinforcement learning model is depicted in Figure ~\ref{fig:ReinforcementLearningModel} 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=12cm]{ReinforcementLearningModel.png}
-    \caption{Abstract depiction of reinforcement Learning Model: At some point in time t, the RL agent experiences a state $S_t$ and a reward $R_t$ for his action in time $t-1$. In state $S_t$, the agent takes action $A_t$ , for which the environment advances a time step, and the agent experiences a new state $S_{t+1}$ and a reward $R_{t+1}$ for action $A_{t+1}$}
+    \includegraphics[width=12cm]{RLAbstract.jpg}
+    \caption{Abstract depiction of reinforcement Learning Model: At some point in time t, the RL agent experiences a state $s_t$ and a reward $r_t$ for his action in time $t-1$. In state $s_t$, the agent takes action $a_t$ , for which the environment advances a time step, and the agent experiences a new state $s_{t+1}$ and a reward $r_{t+1}$ for action $a_{t}$}
     \label{fig:ReinforcementLearningModel}
 \end{figure}
 
-In order to maximize the long term reward signal, Reinforcement learning learns optimal actions for specific environment conditions by trial-and-error \cite{Barto}. 
+Consider a discounted episodic Markov decision process ( s, a, $\gamma$, P, r). At each time step t, the agent perceives a state $s_t$ in state space S from which it selects an action $a_t$ in the action space A by following a policy $\pi(a_t | s_t)$. The agent receives a reward $r_t$ when it transitions to the state $s_{t+1}$ according to the environment dynamics, the reward function R($s_t$, $a_t$, $s_{t+1}$) and the transition probability P($s_{t+1} | s_t , a_t $). This transition probability is unknown in RL domain. The process continues until a terminal state is achieved. The objective is to maximize the expected discounted cumulative rewards
 
-At each time step t, the agent perceives a state $S_t$ in state space S from which it selects an action $A_t$ in the action space A by following a policy $\pi$. The agent receives a reward $R_t$ when it transitions to the state $S_{t+1}$ according to the environment dynamics, the reward function R($S_t$, $A_t$, $S_{t+1}$) and the transition function T($S_t$, $A_t$, $S_{t+1}$). Discount factor $\gamma$ $\in$ [0, 1] is applied to the future rewards. There are two types of RL approach: model based and model free. 
+\begin{equation}\label{disc_rew}
+	E_\pi[r_t] = E_\pi[ \sum_{i=0}^{\infty} \gamma^i r_{t+i}]  
+\end{equation}
+
+where discount factor $\gamma$ $\in$ [0, 1] is applied to the future rewards. 
+
+There are two types of RL approach: model based and model free. 
 
 \textbf{Model based approach} uses a reduced number of interactions with the real environment during the learning phase. Its aim is to construct a model based on these interactions, and then use this model to simulate the further episodes, not in the real environment but by applying them to the constructed model and get the results returned by that model.
 
-\textbf{Model free based approach} act in real environment in order to learn. The most common model-free technique is Q-Learning and Policy Gradient methods. For our project, we will focus on Model free based approach since agents will have to learn by acting in the real RCRS environment. 
+\textbf{Model free approach} act in real environment in order to learn. The most common model-free technique is Q-Learning and Policy Gradient methods. For our project, we will focus on Model free approach since agents will have to learn by acting in the real RCRS environment. 
 
-\subsection{Q-learning} In Q-learning we are trying to build a Q-table that stores all possible combinations of state S and action A. Q value will be depicted as Q(S,A). We sample an action A from the Q-table for the current state S and observe the reward R and next state S'. Then from the Q-table we determine the next action A' in order to have maximum Q(S', A') (Figure ~\ref{fig:QLearning}). 
+\subsection{Q-learning} Q-learning stores a table for the Q-values Q(s,a) according to equation ~\ref{q_value}. Each state-action pair has a Q-value associated with it. Bellman equation is used to find out the optimal Q-value function whose unique solution is Q*(s,a):
+
+\begin{equation}\label{q_value}
+	Q^\pi(s,a) = E[\sum_{k=0}^{\infty} \gamma^k r_{t+k} | s_t = s, a_t = a, \pi]
+\end{equation}
+
+\begin{equation}\label{q_value_2}
+	Q^* (s,a) = (\beta Q^*) (s,a)
+\end{equation}
+
+where $\beta$ is the Bellman operator mapping any function K : S $\times$ A $\rightarrow$ R into another function S $\times$ A $\rightarrow$ R and is defined as follows: 
+
+\begin{equation}\label{beta_eq}
+	(\beta K)(s,a) = \sum_{s' \in S} T(s,a,s') (R(s,a,s') + \gamma max_{a'\in A} K (s', a'))  
+\end{equation}
+
+But there are situations where the state space and action space become so large, that it's not feasible to learn all the Q-values for state-action pair. This is when Deep Reinforcement learning (DRL) is used where neural networks are utilized to model the components of RL. A representation of the architecture is given in Figure ~\ref{fig:DRLArchitecture}. 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=8cm]{QLearning.png}
-    \caption{Working of Q-Learning}
-    \label{fig:QLearning}
+    \includegraphics[width=12cm]{DRLAbstract.jpg}
+    \caption{Deep Reinforcement learning Architecture}
+    \label{fig:DRLArchitecture}
 \end{figure}
 
-\[ Target = R(S,A,S') + \gamma \max_{\{A'\}} Q_k (S', A')  \] 
+\subsubsection{Deep Q-Networks} DQN is a combination of Q-Learning and deep neural networks. DQN addresses the instabilities caused by using non-linear approximator to represent the Q-value by using two insights: experience replay and target network. 
+Using Convolutional Neural Network (CNN) , DQN parameterizes an approximate value function Q(s, a; $\theta_i$) where $\theta_i$ are the weights of the network at iteration i. The experience replay stores the agent’s experiences $e_t$ = ($s_t$, $a_t$, $r_t$, $s_{t+1}$) at each time step t in a dataset $D_t$ = $e_1$,$e_t$ pooled over many episodes into a replay
+memory. Then, mini batches of experience drawn uniformly at random from the dataset (s, a, r, s) $\sim$ U(D) are applied as Q-updates during the training. The Q-learning function is updated using the following loss function:
 
-Here $\gamma$ is the discount factor with values lying between [0,1]. It controls the importance of future rewards vs the immediate ones. The lower the discount factor, the lesser important future rewards are and the agent will tend to focus on actions that will yield immediate rewards.    
+\begin{equation}\label{q_value_2}
+	L_i (\theta_i) = E_{(s,a,r,s) \sim U(D) } [(r +  \gamma max_{a^{'}} Q(s^{'}, a^{'} ; \theta_i^{-}) - Q(s,a; \theta_{i}))^2]
+\end{equation}
+
+\hfill \break
+where $\theta_i$ are the Q-network parameters at iteration i and $\theta_i^{-}$  are the target network parameters. The target network parameters are updated with the Q network parameters every C steps and are held fixed between individual updates. \\
+
 
 \subsection{Policy Gradient} Policy gradient doesn't calculate the Q-value but instead uses a policy. 
 
@@ -212,31 +237,7 @@ The objective function for policy gradient is:
 
 After multiple iterations, policy converges to a maximum value. Drawbacks of policy gradient method can be that it sometimes can get stuck in local maximum and will not be able to reach the global maximum.  
 
-\section{Deep Reinforcement learning}
-
-In situations where there is large state and action space, it is not feasible to learn the Q-values or a policy for each state and action pair. This is when Deep Reinforcement learning (DRL) is used where neural networks are utilized to model the components of RL. A representation of the architecture is given in Figure ~\ref{fig:DRLArchitecture}. 
-
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=12cm]{DRLArchitecture.png}
-    \caption{Deep Reinforcement learning Architecture \cite{Mao}}
-    \label{fig:DRLArchitecture}
-\end{figure}
-
-
-We consider two DRL model free based algorithms: Deep Q-Learning and Proximal Policy Optimization mainly because DQN showed great results on Atari games and helped the team achieve human level performance whereas using PPO, OpenAI's DOTA 2 team was able to beat 99.4 percent of players in a public match.  \\
-
-\subsection{Deep Q-Networks(DQN)} DQN is a combination of Q-Learning and deep neural networks. DQN addresses the instabilities caused by using non-linear approximator to represent the Q-value by using two insights: experience replay and target network. 
-Using Convolutional Neural Network (CNN) , DQN parameterizes an approximate value function Q(s, a; $\theta_i$) where $\theta_i$ are the weights of the network at iteration i. The experience replay stores the agent’s experiences $e_t$ = ($s_t$, $a_t$, $r_t$, $s_{t+1}$) at each time step t in a dataset $D_t$ = $e_1$,$e_t$ pooled over many episodes into a replay
-memory. Then, mini batches of experience drawn uniformly at random from the dataset (s, a, r, s) $\sim$ U(D) are applied as Q-updates during the training. The
-Q-learning update at iteration i follows the loss function:
-
-\[ L_i (\theta_i) = E_{(s,a,r,s) \sim U(D) } [(r +  \gamma max_{a^{'}} Q(s^{'}, a^{'} ; \theta_i^{-}) - Q(s,a; \theta_{i}))^2] \]
-
-\hfill \break
-where $\theta_i$ are the Q-network parameters at iteration i and $\theta_i^{-}$  are the target network parameters. The target network parameters are updated with the Q network parameters every C steps and are held fixed between individual updates. \\
-
-\subsection{Proximal Policy Optimization (PPO)} PPO is a type of policy gradient method which performs  comparably or better than state-of-the-art approaches while being much simpler to implement and tune. Careful tuning of the step size is required for achieving good results with policy gradient algorithms \cite{PPO}. Moreover, most policy gradient methods perform one gradient update per sampled trajectory and have high sample complexity. Schulman et al. \cite{Schulman} introduced PPO algorithm that solves both these problems. It uses a surrogate objective which is maximized while penalizing large changes to the policy. 
+\subsubsection{Proximal Policy Optimization (PPO)} PPO is a type of policy gradient method which performs  comparably or better than state-of-the-art approaches while being much simpler to implement and tune. Careful tuning of the step size is required for achieving good results with policy gradient algorithms \cite{PPO}. Moreover, most policy gradient methods perform one gradient update per sampled trajectory and have high sample complexity. Schulman et al. \cite{Schulman} introduced PPO algorithm that solves both these problems. It uses a surrogate objective which is maximized while penalizing large changes to the policy. 
 They defined a likelihood ratio 
 
 \[ l_t(\theta) = \frac{\pi_\theta(a_t | s_t)}{\pi_{\theta old}(a_t | s_t)}\]
@@ -257,7 +258,7 @@ In multi-agents systems there are several agents that model each other's goals a
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=12cm]{MultiAgentSystem.png}
+    \includegraphics[width=12cm]{MultiAgentScenario.jpg}
     \caption{A fully general multiagent scenario. Agents can affect other agents actions, goals or domain knowledge or communicate directly with each other \cite{Stone}}
     \label{fig:MultiAgentSystem}
 \end{figure}
@@ -284,10 +285,6 @@ Since the success of deep RL using DQN proposed by \cite{Kavukcuoglu} many algor
 One of the earliest MADRL work was done by Tampuu et al \cite{Tampuu}. They had two independent DQN learning agents to play the Atari Pong game. They focused on building a reward function which resulted in either cooperative or competitive behaviours. Leibo et al. \cite{Leibo} studied about independent DQNs in the context of sequential social dilemmas which is a Markov game that satisfies certain inequalities. Their work focused on highlighting that cooperative or competitive behaviors exist not only as discrete actions but they are temporally extended over policies. Being able to capture sequential structure of real world social dilemmas, sequential social dilemma is an extension of matrix game social dilemma which has been previously applied to various phenomena in biology \cite{Cote}. DQN was used to find self interested independent learning agents to find equilibria of the sequential social dilemma which cannot be solved by the standard evolution methods used for matrix game social dilemma \cite{Weiner}. Lerer and Peysakhovich \cite{Lerer} were able to show theoretically and experimentally that agents can maintain cooperation using the famous Tit-for-Tat strategy for DRL (using function approximators). They used self play and two reward schemes: selfish and cooperative to construct the agents. Bansal et al. \cite{Bansal} used MuJoCo simulator to explore the emergent behaviors in competitive scenarios. They trained independent learning agents with PPO and incorporated two main modifications to deal with the Multiagent nature of the problem. Raghu et al. \cite{Raghu} studied how DRL algorithms like DQN, PPO performed in a two-player zero-sum games with tunable complexity called Erdos-Selfridge Spencer games. They were able to show that algorihms can exhibit wide variation in performance as the algorithms are tuned to the game's difficulty. Jiang and Lu \cite{Jiang} proposed a novel MADRL model that learns to communicate and exchange information while making decisions using actor-critic algorithm. Another interesting work in the field of MADRL was by Shao et al. \cite{Shao} for the game of StarCraft. In order to balance the units moved and attack strength of the enemy, they used parameter sharing multi-agent gradient descent SARSA algorithm using neural network to approximate the value function and reward function. However, high computation power was required for the implementation. 
 
 \section{Reinforcement learning for RCRS}
-
-On January 17th 1995, the Great Hanshin earthquake hit the Japanese port city Kobe with a magnitude of 6.8 on richter scale causing mass destruction taking approximately 7000 lives \cite{Bilski} \cite{RoboCup}. In response to the disaster, it was decided that the current disaster management policies should be changed. On April 30th 1999, RoboCup Rescue league was founded in order to promote international research towards the development of better rescue capabilities \cite{Bilski}.   
-
-Over the years many teams have participated in the annual RoboCup Rescue league which consists of three competitions: robotics competition, virtual robot competition and the simulated agent competition. We will be focusing on the simulated agent competition known as RoboCup Rescue Simulation (RCRS) which is a perfect example of multiagent systems. 
 
 In this section we will go over the work done by previous participating teams and how they have applied Reinforcement learning to RCRS. 
 
@@ -386,11 +383,15 @@ Pseudo code for the algorithm that fire brigade follows is described in Pseudo-A
 
 \section{Defining State Space, Action Space and Reward function}
 
-The first step in applying reinforcement learning algorithms involves defining state space, action space and reward function. 
+In order to apply reinforcement learning techniques to RCRS, one needs to first define a specific state space, action space, and reward function. In the rest of this section, we detail the choices that were made under this project. 
 
 \subsection{State Space}
     
-State space has three parts. The first part is the building information which consists of the temperature and fieryness. Note that, fieryness is a parameter to measure the degree of fire in a building. The second part is the agent information which gives the location ((X,Y) coordinates), water in the fire tanks and the health points of the fire brigade at each timestep. The third part is the busy/idle information which is a binary variable. Fire brigades receive a building id at each timestep as their target location. But it sometimes takes more than one timestep for them to reach the building. In the meanwhile, actions are being sent continuously. Hence, fire brigades have to ignore the actions till the time they visit the building they have been told to visit in the previous timestep. This information is passed over as a state information which will be highly valuable for our algorithm to perform better. Whenever the actions that are sent by the algorithm are used in the simulator (busy), 1 is sent back as the state information otherwise 0 is sent (idle). All the other state information values have certain ranges which are elaborated in Table ~\ref{table:StateInfoTable}. 
+We define the state space here as follows: the first part is the building information which consists of the temperature and fieryness. Note that, fieryness is a parameter to measure the degree of fire in a building. The second part is the agent information which gives the location ((X,Y) coordinates), water in the fire tanks and the health points of the fire brigade at each timestep. The third part is the busy/idle information which is a binary variable. Fire brigades receive a building id at each timestep as their target location. But it sometimes takes more than one timestep for them to reach the building. In the meanwhile, actions are being sent continuously. Hence, fire brigades have to ignore the actions till the time they visit the building they have been told to visit in the previous timestep. This information is passed over as a state information which will be highly valuable for our algorithm to perform better. Whenever the actions that are sent by the algorithm are used in the simulator (busy), 1 is sent back as the state information otherwise 0 is sent (idle). The dimensionality of the state space can be generalized by the following formula: 
+
+State Space Dimensionality = 2*No. of buildings + 3*No. of Agents + Busy/idle
+
+Table ~\ref{table:StateInfoTable} elaborates the range of value every state information can have. 
 
     \begin{table} [!h]
     \begin{center}
@@ -415,7 +416,9 @@ State space has three parts. The first part is the building information which co
 
 \subsection{Action Space} 
     
-The only action available to our agent is to move to the building which is on fire and therefore the action space consists of the ID's of the buildings. Note that extinguishing fire and refilling water are default characteristics of our agent i.e. whenever our agent is near a building on fire, it will try to extinguish it and whenever it is out of water, it will move to the refuge to refill the tank. Therefore these actions are not included in the action space. 
+The only action available to our agent is to move to the building which is on fire and therefore the action space consists of the ID's of the buildings. Note that extinguishing fire and refilling water are default characteristics of our agent i.e. whenever our agent is near a building on fire, it will try to extinguish it and whenever it is out of water, it will move to the refuge to refill the tank. Therefore these actions are not included in the action space. The dimensionality of the action space can be generalized by the following formula: 
+
+Action space dimensionality = Number of buildings in the map
     
 \subsection{Reward Function}
         
@@ -457,18 +460,18 @@ Since the ultimate goal of the fire brigades is to extinguish fire as quickly as
 
 \section{Model Architecture}
 
-We use DQN and PPO architecture with a few modifications. We do not have the set of convolutional layers since the input to the neural networks is not an image. The input to the network is state representation and there is a separate output unit for each possible action. Stable baselines has the option of using different architectures where we can change the number of hidden layers, use LSTM, use CNN or combine CNN and LSTM. We tried different architectures while training the model. As an example of one of the architecture we tried, consider Figure ~\ref{fig:27}. Input the neural network is not only the state information of the current agent but also other agents. The state information is fed to the first hidden layer having 64 units followed by another fully connected hidden layer with 64 units. The output to the second hidden layer is passed through a softmax layer. Dimension of the softmax layer is equal to the number of actions possible i.e. number of buildings present in the map. 
+We use DQN and PPO architecture with a few modifications. We do not have the set of convolutional layers since the input to the neural networks is not an image. The input to the network is state representation and there is a separate output unit for each possible action. Different architectures were tried by changing the number of hidden layers, using LSTM, using CNN or combination of CNN and LSTM. As an example of one of the architecture we tried, consider Figure ~\ref{fig:27}. Input the neural network is not only the state information of the current agent but also other agents. The state information is fed to the first hidden layer having 64 units followed by another fully connected hidden layer with 64 units. The output to the second hidden layer is passed through a softmax layer. Dimension of the softmax layer is equal to the number of actions possible i.e. number of buildings present in the map. Figure ~\ref{fig:27} is the model architecture for Agent 1. For Agent 2, the architecture would be the same. Input to the neural network would be (X, Y) coordinates, water level and health points of agent 2 along with (X, Y) coordinates, water level and health points of the other agents. This will also include the building information and if agent 2 is in busy/idle condition. 
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=17cm]{27}
-    \caption{Schematic Illustration of the Model Architecture}
+    \caption{Schematic Illustration of the Model Architecture for Agent 1}
     \label{fig:27}
 \end{figure}
 
 \section{Hyperparameter Search}
 
-For DQN and PPO, different parameter were tweaked like batch size, learning rate, discount factor. For each parameter setting, 5 repetitions were done and the average value of the reward was calculated. Values of the parameter that were tried can be found in Table ~\ref{table:DQNRangesHyperparameter}. 400 episodes were run for "Small" map and 5000 episodes were run for "Big" map. 
+For DQN and PPO, different parameter were tweaked like batch size, learning rate, discount factor. For each parameter setting, 5 repetitions were done and the average value of the reward was calculated. Values of the parameter that were tried can be found in Table ~\ref{table:DQNRangesHyperparameter}. 400 episodes were run for "Small" map and 10000 episodes were run for "Big" map. 
 
 \begin{table} [!h]
 \begin{center}
@@ -515,11 +518,7 @@ For DQN and PPO, different parameter were tweaked like batch size, learning rate
 
 \chapter{RCRS Gym Environment: Setup, Experiments and Results}
 
-In order to device the model presented in Chapter 3 and prove its concepts, an OpenAI gym environment \cite{brockman2016openai} was created that allowed developing agents which are capable of extinguishing fire in the city. 
-
-OpenAI is a framework which defines a standard structure that a DRL agent can be built with, thus making the structure of the agent easy to recognize by any developer and makes the agent compatible with any environment. 
-
-Since OpenAI is built in Python, it can be easily connected with state-of-art DRL framework such as Tensorflow \cite{Abadi} with gym agents and use DRL techniques that use those frameworks provide. There are certain example algorithms available in OpenAI gym which simplifies the testing on a new environment. 
+In order to device the model presented in Chapter 3 and prove its concepts, an OpenAI gym environment \cite{brockman2016openai} was created that allowed developing agents which are capable of extinguishing fire in the city. OpenAI is a framework which defines a standard structure that a DRL agent can be built with, thus making the structure of the agent easy to recognize by any developer and makes the agent compatible with any environment. Since OpenAI is built in Python, it can be easily connected with state-of-art DRL framework such as Tensorflow \cite{Abadi} with gym agents and use DRL techniques that use those frameworks provide. There are certain example algorithms available in OpenAI gym which simplifies the testing on a new environment. 
 
 The conceptual model of RCRS gym environment is presented in Figure ~\ref{fig:OpenAIgymRCRS}. Section 4.1 elaborates about the setup that was created to adapt RCRS to allow the training of DRL agents. In Section ~\ref{Experiments}, experiments that were carried out will be detailed and results will be analyzed. 
 
@@ -532,15 +531,7 @@ The conceptual model of RCRS gym environment is presented in Figure ~\ref{fig:Op
 
 \section{Setup} \label{Setup}
 
-This section will deal with the process of building the environment and the logic behind the decisions that are made. 
-
-Section ~\ref{RCRSEnvironment} will describe the goal of the agent, what tasks will it perform after training, introduction to various maps and the complexity of the environment. 
-
-Section ~\ref{OpenAIGym} will elaborate about gym framework and why it was selected.
-
-RCRS is written in Java and OpenAI gym in Python. There has to be a communication channel by which these two languages can communicate in order to send messages. Section ~\ref{CommunicationJavaPython} will discuss about how the communication between Java and Python was established. 
-
-Finally, the overall implementation of RCRS-gym environment will be discussed in Section ~\ref{RCRSGymImplementation}. 
+This section will deal with the process of building the environment and the logic behind the decisions that are made. Section ~\ref{RCRSEnvironment} will describe the goal of the agent, what tasks will it perform after training, introduction to various maps and the complexity of the environment. Section ~\ref{OpenAIGym} will elaborate about gym framework and why it was selected. RCRS is written in Java and OpenAI gym in Python. There has to be a communication channel by which these two languages can communicate in order to send messages. Section ~\ref{CommunicationJavaPython} will discuss about how the communication between Java and Python was established. Finally, the overall implementation of RCRS-gym environment will be discussed in Section ~\ref{RCRSGymImplementation}. 
 
 
 \subsection{RCRS Environment} \label{RCRSEnvironment}
@@ -687,7 +678,7 @@ while not done:
 
 \section{Experiments and Results} \label{Experiments}
 
-To start the testing and see if deep reinforcement learning works on RCRS, we started with experimenting on "Small" map. PPO and DQN algorithm were applied to the simulator and the results were compared with a greedy approach where the agents would always extinguish the building with highest fieryness value. 
+To start the testing and see if deep reinforcement learning works on RCRS, we started with experimenting on "Small" map. PPO and DQN algorithm were applied and the results were compared with a greedy approach where the agents would always extinguish the building with highest fieryness value. 
 
 \subsection{Small Map Experiments and Results}
 
@@ -737,13 +728,13 @@ and Table ~\ref{table:BestPPOHyperparameter}.
 \end{center}
 \end{table}
 
-Mean and standard deviation of the reward is calculated after every 5 episodes. Since greedy algorithm wasn't learning, it had a constant reward value of 6.33. DQN achieved a highest cumulative reward of 5.89 and PPO achieved a highest cumulative reward of 5.88. Figure ~\ref{fig:SmallMapResults} shows that both the algorithms were able to learn in the environment improving their cumulative rewards over time. However, DQN attained highest cumulative reward in less number of episodes than PPO showing that it is a more effective algorithm for "Small" map setting.  
+Mean and standard deviation of the reward is calculated after every 5 episodes. Since the greedy algorithm doesn't learn, it had a constant reward value of 6.33. DQN achieved a highest cumulative reward of 5.89 and PPO achieved a highest cumulative reward of 5.88. Figure ~\ref{fig:SmallMapResults} shows that both the algorithms were able to learn in the environment improving their cumulative rewards over time. However, DQN attained highest cumulative reward in less number of episodes than PPO showing that it is a more effective algorithm for "Small" map setting.  
 
 Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} show how the agents gets better at extinguishing fire over the episodes. After 5 episodes, both the algorithms were performing badly with most of the buildings critically or totally burnt. After 150 episodes, agents started learning and higher number of buildings were extinguished. After 250 episodes, DQN was able to successfully figure out the buildings that caused the fire to spread throughout the map and was able to extinguish fire in those buildings. PPO was performing better than how it was performing after 150 episodes, but still not as good as DQN. After 300 episodes, PPO was also able to successfully extinguish the critical buildings. For better visualization on how the agents performed over episodes, refer to the \href{https://github.com/animeshgoyal9/RoboCup_Rescue_Simulator_Gym_Integration} {GitHub page}. 
 
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=12cm]{29.png}
+    \includegraphics[width=16cm]{29.png}
     \caption{Rewards per episode for PPO, DQN and Greedy algorithm in "Small" Map setting. Dark line represents the mean value for rewards while shaded region is the standard deviation}
     \label{fig:SmallMapResults}
 \end{figure}
@@ -763,24 +754,85 @@ Figure ~\ref{fig:PPOLearningSmallMap} and Figure ~\ref{fig:DQNLearningSmallMap} 
 \end{figure}
 
 \subsection{Big Map Experiments and Results}
----------------------------------Still in progress---------------------------------
 
-% \begin{figure}[!h]
-%     \centering
-%     \includegraphics[width=12cm]{30.png}
-%     \caption{Comparison of Results for Big Map}
-%     \label{fig:DQNSmallMapLearningMaps}
-% \end{figure}
+Since the "Big Map" had greater number of buildings and fire brigade, both state space and action space increased. This increase in search space meant greater number of combination and increase in the number of episodes to run the simulation. We increased the number of episodes from 400 in "Small Map" to 10000 episodes in "Big Map". This gave sufficient time for the agents to look for the optimal policy. 
+
+The simulations were started by testing DQN algorithms. Different network architectures and hyperparameters were tried but none of them showed any kind of learning. The primary reason could be that learning in a complex environment requires the agent to represent the knowledge at multiple level of spatio-temporal abstractions and to explore the environment efficiently. Kulkarni et al. \cite{Kulkarni} presented H-DQN, a framework to integrate DRL with hierarchical value functions that work at different temporal scales. A high level value function learns learns a policy over intrinsic goals and a lower-level function learns a policy over atomic actions to satisfy the given goals. H-DQN provides efficient exploration in complex scenarios. Hence we went ahead with H-DQN instead of DQN. 
+
+As mentioned above, several model architecture and hyperparameters, a two layer hidden neural network with first layer having 128 units and second layer having 64 units, showed the best performance for PPO. For H-DQN, a four layered neural network with first layer having 128 units and other three layers having 64 units gave the best result. Both the architecture were trained using LSTM. Best hyperparameters are listed in Table ~\ref{table:BestHDQNHyperparameterBigMap} and Table ~\ref{table:BestPPOHyperparameterBigMap}. 
+
+Figure ~\ref{fig:BigMapResults} shows that H-DQN achieved a highest cumulative reward of 8.37 while PPO achieved a highest value of 8.84. If compared with the baseline greedy approach, PPO seems to perform better than H-DQN and shows learning as the episodes go on. After 5000 episodes, PPO performs consistently better than the greedy approach. 
+
+\begin{table} [!h]
+\begin{center}
+ \begin{tabular}{l | l} 
+ \hline
+ Parameter & Best - Big Map  \\ [0.5ex] 
+ \hline\hline
+ Discount factor ($\gamma$) & 0.99  \\
+ n-step & 32\\
+ Entropy Coefficient & 0.01\\
+ Learning rate & 5e-4\\
+ Value Function Coefficient & 0.5\\
+ Gradient Clipping value &  0.5\\
+ Number of training minibatches & 4\\
+ Clip Range & 0.2\\
+ Optimizer & Adam  \\ 
+ \hline
+\end{tabular}
+\caption{PPO: Best hyperparameters}
+\label{table:BestHDQNHyperparameterBigMap}
+\end{center}
+\end{table}
+
+\begin{table} [!h]
+\begin{center}
+ \begin{tabular}{l | l} 
+ \hline
+ Parameter & Best - Big Map  \\ [0.5ex] 
+ \hline\hline
+ Discount factor ($\gamma$) & 0.99 \\ 
+ Learning rate & 25e-4\\
+ Buffer size & 50000 \\
+ Exploration Fraction & 0.1\\
+ Batch size  & 128\\
+ Learning starts & 1000\\
+ Target Network update frequency & 1000\\
+ Optimizer & Adam \\ 
+ \hline
+\end{tabular}
+\caption{HDQN: Best hyperparameters}
+\label{table:BestPPOHyperparameterBigMap}
+\end{center}
+\end{table}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=16cm]{LearningCurve_BigMap.png}
+    \caption{Rewards per episode for PPO, HDQN and Greedy algorithm in "Big" Map setting. Dark line represents the mean value for rewards while shaded region is the standard deviation}
+    \label{fig:BigMapResults}
+\end{figure}
+
+For both Small map and Big Map setting, models trained using LSTM performed the best. In order to confirm this, we compared the learning curves when model architecture includes LSTM and when it doesn't in the Big Map setting. Since PPO performed better in the Big Map setting, LSTM policy was trained using PPO. Figure ~\ref{fig:PPOLSTMCompares} shows how agents starts to learn and perform better when trained using LSTM. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=16cm]{PPOLSTMCompare.png}
+    \caption{Comparison between the learning curves when PPO is used with LSTM and when it is not in the Big Map setting}
+    \label{fig:PPOLSTMCompares}
+\end{figure}
 
 \chapter{Conclusion and Future Work}
 
-In this report, we have presented how deep reinforcement learning can be applied to a multiagent scenario, specifically to RoboCup Rescue Simulator.We have built a RCRS-gym interface that will allow different RL algorithms to be applied to the simulator. The interface created provides an easy setup for developers to research RCRS using Python framework. The gRPC communication between Java and Python is also a feature that proved important to send actions and receive state information. 
+In this report, we have presented how deep reinforcement learning can be applied to a multiagent scenario, specifically to RoboCup Rescue Simulator. We have built a RCRS-gym interface that will allow different RL algorithms to be applied to the simulator. The interface created provides an easy setup for developers to research RCRS using Python framework. The gRPC communication between Java and Python is also a feature that proved important to send actions and receive state information. 
 
 We evaluated two state-of-the-art DRL algorithms, Proximal Policy Optimization (PPO) and Deep Q-Networks (DQN). Both the algorithms were trained on two map setting: "Small" map and "Big" map. 
 
 PPO and DQN were both able to demonstrate learning on the "Small" map with average cumulative reward increasing over episodes. DQN converged quickly than PPO showing that it performed better as compared to PPO. However, these algorithms were slightly subpar when compared to Greedy algorithm where the agents would always extinguish the building with highest fieryness value. 
 
-This study demonstrated that successfully trained agents can indeed learn a strategy to extinguish the buildings on fire proving that RCRS is a suitable environment to apply Deep Reinforcement learning techniques. However, there are various avenues that can be studied as future research. Applying similar techniques for a bigger map setting can be the first line of direction of study for researchers. Is there a map setting where PPO and DQN performs better than greedy algorithm, are there situations where PPO learns quicker than DQN, can this be generalized by looking at the number of buildings in the map, are some of the questions that are still unanswered. 
+In the Big Map setting, model was trained using PPO and and a variant of DQN i.e. H-DQN. PPO outperformed H-DQN and was able to show learning. However the learned agent was not able to significantly outperform the greedy algorithm and showed better performance for only a few episodes. A few of the reasons might be because of the inefficient writing of the code or the number of training episodes were not sufficient. 
+
+This study demonstrated that successfully trained agents can indeed learn a strategy to extinguish the buildings on fire proving that RCRS is a suitable environment to apply Deep Reinforcement learning techniques. However, there are various avenues that can be studied as future research. Is there a map setting where PPO and DQN performs better than greedy algorithm, are there situations where PPO learns quicker than DQN, can this be generalized by looking at the number of buildings in the map, are some of the questions that are still unanswered. 
 
 Another avenue to research for is how can we include other agents like police officers and ambulance teams to train them and accomplish their individual tasks successfully. Our current work assumes full observability to all the agents, future work can also focus on training the agents with partial observability. 
 
