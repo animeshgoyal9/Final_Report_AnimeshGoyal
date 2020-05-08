@@ -269,7 +269,7 @@
     \renewcommand{\thesistype}{Thesis}
     \renewcommand{\@publicationno}{}
     \renewcommand{\thesisdegree}{Master of Science}
-    \renewcommand{\thesisdegreeabbreviation}{M.S.}
+    \renewcommand{\thesisdegreeabbreviation}{M.S.E.}
     \renewcommand{\thesiscommitteesize}{2}
     \renewcommand{\thesiscommittee}{Supervising Committee:}}
 \newcommand{\phdthesis}{}
@@ -394,9 +394,9 @@
 %%% Adapted from 26 Aug 2001 cwm by JAB
 %%%
 \newcommand{\thesissigline}[1]{%
-  \leftline{\hbox to 2.5in{}\hrulefill}
-  \endgraf
-  \vspace*{-18pt}
+%   \leftline{\hbox to 2.5in{}\hrulefill}
+%   \endgraf
+%   \vspace*{-18pt}
   \leftline{\hbox to 2.53in{}{#1}}}
 
 %%%
@@ -406,7 +406,9 @@
 %%%
 \newcommand{\thesiscertificationsignaturelines}{
      \ifx\thesissupervisor\@emptycommand\relax\else
+        \vspace{10pt}
         \thesissigline{\thesissupervisor, Supervisor}
+        \vspace{10pt}
      \fi
      \ifx\thesiscosupervisor\@emptycommand\relax\else
         \thesissigline{\thesiscosupervisor, Co-Supervisor}
@@ -458,7 +460,7 @@
     \large\bf\@thesistitle
     \end{center}
     \vspace*{55pt}
-    \leftline{\hbox to 2.5in{}Committee:\hfill}
+    \leftline{\hbox to 2.5in{}SUPERVISING COMMITTEE:\hfill}
     %\bigskip\medskip\smallskip
     \bigskip
     \thesiscertificationsignaturelines
